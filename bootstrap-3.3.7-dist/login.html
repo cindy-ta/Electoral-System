@@ -20,34 +20,37 @@
 </head>
 <body>
 
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">Electoral-System</a>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Electoral-System</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">Ballot Page</a></li>
+                <li><a href="#">Profile Page</a></li>
+            </ul>
         </div>
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#">Ballot Page</a></li>
-            <li><a href="#">Profile Page</a></li>
-        </ul>
+    </nav>
+
+    <div class="container">
+        <h1>Login</h1>
+        <form>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+            </div>
+
+            <button type="submit" class="btn btn-default">Login</button>
+            <button type="submit" class="btn btn-default">Register</button>
+
+            <a href="" class="forgot-password">Forgot Password?</a>
+        </form>
     </div>
-</nav>
-
-<div class="container">
-    <h1>Login</h1>
-    <form>
-        <div class="form-group">
-            <label for="email">Email address:</label>
-            <input type="email" class="form-control" id="email">
-        </div>
-        <div class="form-group">
-            <label for="pwd">Password:</label>
-            <input type="password" class="form-control" id="pwd">
-        </div>
-
-        <button type="submit" class="btn btn-default">Submit</button>
-    </form>
-</div>
 
 
 
