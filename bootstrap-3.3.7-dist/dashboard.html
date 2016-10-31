@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>1 Col Portfolio - Start Bootstrap Template</title>
+    <title>Dashboard</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -32,7 +32,7 @@
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">Electoral-System</a>
+            <a class="navbar-brand">Electoral-System</a>
         </div>
         <ul class="nav navbar-nav">
             <li class="active"><a href="../bootstrap-3.3.7-dist/dashboard.html">Home</a></li>
@@ -52,8 +52,8 @@
     <!-- Page Heading -->
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Page Heading
-                <small>Secondary Text</small>
+            <h1 class="page-header">Electoral System
+                <small><p id="demo"></p></small>
             </h1>
         </div>
     </div>
@@ -67,8 +67,8 @@
             </a>
         </div>
         <div class="col-md-5">
-            <h3>Project One</h3>
-            <h4>Subheading</h4>
+            <h3>Presidential Election</h3>
+            <h4>Hillary Clinton vs. Donald Trump</h4>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p>
             <a class="btn btn-primary" href="#">View Project <span class="glyphicon glyphicon-chevron-right"></span></a>
         </div>
@@ -85,8 +85,8 @@
             </a>
         </div>
         <div class="col-md-5">
-            <h3>Project Two</h3>
-            <h4>Subheading</h4>
+            <h3>Senator Election</h3>
+            <h4>Anthony Maiers vs. Mohit Navlakha</h4>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, odit velit cumque vero doloremque repellendus distinctio maiores rem expedita a nam vitae modi quidem similique ducimus! Velit, esse totam tempore.</p>
             <a class="btn btn-primary" href="#">View Project <span class="glyphicon glyphicon-chevron-right"></span></a>
         </div>
@@ -200,6 +200,9 @@
 
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
+<script>
+    document.getElementById("demo").innerHTML = Date();
+</script>
 
 </body>
 
