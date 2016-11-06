@@ -12,16 +12,16 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
             var success = false;
             //$scope.message = user_authentication;
 
-            if (user_authentication.length > 0){
-                if (user_authentication[0].password == md5.createHash($scope.login.password)) {
+            if (user_authentication != {} ){
+                if (user_authentication/*[0]*/.password == md5.createHash($scope.login.password)) {
                     success = true;
-                    startSessionAndGoToHomePage(user_authentication[0]);
-                    //$scope.message = "";
+                    startSessionAndGoToHomePage(user_authentication/*[0]*/);
+                    $scope.message = "success";
                 }else{
-                    //$scope.message = "Incorrect Email/Password combination";
+                   $scope.message = "Incorrect Email/Password combination";
                 }
             }else{
-             //$scope.message = "User not found";
+                $scope.message = "User not found";
             }
         });
     }
