@@ -8,6 +8,7 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
     function getUserAuthenticationAndValidate( user ) {
         $http.post('server/getUserAuthentication.php?user='+user).success(function (user_authentication) {
 
+            $scope.message = user_authentication;
             var success = false;
             //$scope.message = user_authentication;
 
@@ -15,12 +16,12 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
                 if (user_authentication[0].password == md5.createHash($scope.login.password)) {
                     success = true;
                     startSessionAndGoToHomePage(user_authentication[0]);
-                    $scope.message = "";
+                    //$scope.message = "";
                 }else{
-                    $scope.message = "Incorrect Email/Password combination";
+                    //$scope.message = "Incorrect Email/Password combination";
                 }
             }else{
-             $scope.message = "User not found";
+             //$scope.message = "User not found";
             }
         });
     }
@@ -89,6 +90,8 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
     };
 
     $scope.validateLogin = function() {
+
+        //$scope.message = $scope.login.user_name
         getUserAuthenticationAndValidate($scope.login.user_name)
     }
 });
