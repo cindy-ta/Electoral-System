@@ -4,18 +4,11 @@
     if(isset($_GET['user'])){
         $user = $_GET['user'];
 
-        $query="SELECT * FROM users WHERE user_name='$user'";
+        $query="SELECT * FROM Users WHERE username='$user'";
         $result = $mysqli->query($query) or die($mysqli->error.__LINE__);
 
-        $arr = array();
-        if($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) {
-                $arr[] = $row;
-            }
-        }
-
         # JSON-encode the response
-        echo $json_response = json_encode($arr);
+        echo $json_response = json_encode($result->fetch_assoc());
     }
 ?>
 
