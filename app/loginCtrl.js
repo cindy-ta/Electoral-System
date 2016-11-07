@@ -4,6 +4,7 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
     $scope.message = "";
     $scope.good_password_style = false;
     $scope.isManager = false;
+    $scope.isLoggedIn = false;
 
     function getUserAuthenticationAndValidate( user ) {
         $http.post('server/getUserAuthentication.php?user='+user).success(function (user_authentication) {
@@ -35,7 +36,7 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
                 access: user.user_type
             };
             $cookieStore.put("session", $rootScope.session );
-            $scope.login.user_name = data
+            $scope.login.user_name = data;
             $location.path("/home");
         })
     }
@@ -58,13 +59,20 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
         $location.path('/login');
     }
 
-
     $scope.redirectToCreateAccountPage = function(){
         $location.path('/registration');
     };
 
     $scope.redirectToHome = function(){
         $location.path("/home");
+    }
+
+    $scope.redirectToBallotPage = function() {
+        $location.path('/ballot');
+    }
+
+    $scope.redirectToProfile = function() {
+        $location.path('/profile');
     }
 
     $scope.createAccount = function(){
@@ -121,6 +129,16 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
         //$scope.message = $scope.good_password_style;
         return $scope.good_password_style;
     };
+
+    $scope.login_check = function() {
+        $scope.isLoggedIn = false;
+
+        if($rootScope.session != null) {
+            $scope.isLoggedIn = true;
+        }
+
+        return !($scope.isLoggedIn);
+    }
 
     $scope.usertype = function(){
 
