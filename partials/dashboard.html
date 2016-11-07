@@ -1,4 +1,4 @@
-<div class="container" ng-controller="loginCtrl">
+<div class="container" ng-controller="dashboardCtrl">
 
     <!-- Page Heading -->
     <div class="row">
@@ -12,10 +12,21 @@
 
     <!-- Project One -->
     <div class="row">
-        <h3>Presidential Election</h3>
-        <h4>Hillary Clinton vs. Donald Trump</h4>
-        <h5>Start Time: Mon Oct 31 2016 00:00:00 CST<br/>End Time: Fri Nov 25 2016 00:00:00 CST</h5>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p>
+        <label ng-model="dashboard.election_id" name="election_id">1</label>
+
+    </div>
+
+    <div class="row">
+        <h3><label ng-model="dashboard.election_title" name="election_title">Presidential Election</label></h3>
+
+        <h4><label ng-model="dashboard.candidate" name="candidate">Hillary Clinton</label> vs. <label ng-model="dashboard.candidate" name="candidate">Donald Trump</label></h4>
+
+        <h5>Start Time: <label ng-model="dashboard.start_time" name="start_time">Mon Oct 31 2016 00:00:00 CST</label>
+            <br/>End Time: <label ng-model="dashboard.end_time" name="end_time">Fri Nov 25 2016 00:00:00 CST</label></h5>
+
+        <p><label ng-model="dashboard.election_description" name="election_description">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            Laudantium veniam exercitationem expedita laborum at voluptate.
+            Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</label></p>
         <a class="btn btn-primary" href="../bootstrap/ballot.html">Cast Vote<span class="glyphicon glyphicon-chevron-right"></span></a>
     </div>
     <!-- /.row -->

@@ -1,24 +1,13 @@
 app.controller("dashboardCtrl", function(md5, $http, $scope, $rootScope, uuid2, $location, $cookieStore){
     $scope.message = "";
-    $scope.isManager = false;
-    $scope.isAdmin = false;
+    $scope.dashboard = {};
 
-    $scope.redirectToHome = function(){
-        $location.path("/home");
+    $scope.findElectionInfo = function()
+    {
+        $http.post('server/populateDashboard.php?election_id=' + $scope.dashboard.election_id).success(function (electionID) {
+
+            console.log(electionID);
+
+        });
     }
-
-
-
-    $scope.usertype = function(){
-
-        $scope.isManager = false;
-
-        if($scope.login.user_type == "Manager")
-        {
-            $scope.isManager = true;
-        }
-
-        return !($scope.isManager);
-    };
-
 });

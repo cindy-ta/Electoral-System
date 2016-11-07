@@ -80,50 +80,34 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
 
         if ($scope.good_email == true) {
 
-            if ($scope.login.password == $scope.login.password2) {
+            $http.post('server/checkEmails.php?email=' + $scope.login.email).success(function (isEmailAvailable) {
+                //console.log("isEmailAvilalble: " + isEmailAvailable);
+                var store = isEmailAvailable;
+                //console.log("store: " + store);
+                //alert(typeof(store)); // type string
+                if (store.length > 1) {
+                    //console.log("Email is available!!!! :)");
 
-                if ($scope.login.user_type == "Voter") {
+                    if ($scope.login.password == $scope.login.password2) {
+                        var password = md5.createHash($scope.login.password)
 
-                    $http.post('server/checkEmails.php?email=' + $scope.login.email).success(function (isEmailAvailable) {
-                        //console.log("isEmailAvilalble: " + isEmailAvailable);
-                        var store = isEmailAvailable;
-                        //console.log("store: " + store);
-                        //alert(typeof(store)); // type string
-                        if (store.length > 1) {
-                            //console.log("Email is available!!!! :)");
-                            var password = md5.createHash($scope.login.password)
-                            var manager_key = 0;
-                            $http.post('server/createUser.php?email=' + $scope.login.email + '&password=' + password + '&user_type=' + $scope.login.user_type + '&manager_key=' + manager_key).success(function (msg) {
-
-                                $location.path("/login");
-                            });
-
-                        } else {
-                            //console.log("Email is not available.");
-                            $scope.message = "Account is already registered under this email. Try Logging in or inquiring about a Forgotten Password"
-                        }
-                    });
-                } else {
-
-                    var password = md5.createHash($scope.login.password)
-                    var manager_key = $scope.login.manager_key;
-                    $http.post('server/createUser.php?email=' + $scope.login.email + '&password=' + password + '&user_type=' + $scope.login.user_type + '&manager_key=' + manager_key).success(function (msg) {
-                        if(msg.length == 6)
-                        {
-                            $scope.message = "This person is already registered."
-                        }else if(msg.length == 4) {
+                        $http.post('server/createUser.php?email=' + $scope.login.email + '&password=' + password + '&user_type=' + $scope.login.user_type).success(function (msg) {
+                            console.log("msg : " + msg);
                             $location.path("/login");
-                        }else
-                        {
-                            $scope.message = "Manager details not found in database"
-                        }
-                    });
+                        });
+                    } else {
+                        $scope.message = "Passwords do not match";
+                    }
+
                 }
-            }
-            else {
-                 $scope.message = "Passwords do not match";
-            }
-        }else {
+                else {
+                    //console.log("Email is not available.");
+                    $scope.message = "Account is already registered under this email. Try Logging in or inquiring about a Forgotten Password"
+
+                }
+            })
+        }
+        else {
             $scope.message = "Invalid email"
         }
     };
@@ -131,13 +115,15 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
     $scope.goodEmail = function(){
 
         $scope.good_email = false;
-        var emailRegex = /^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
+        var emailRegex = /^[0-9a-zA-Z]+(\.[0-9a-zA-Z]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
 
         if(($scope.login.email.match(emailRegex)).length>0)
         {
             $scope.good_email = true;
+            //console.log("Email is good");
         }
 
+        //console.log("Email is bad");
         return $scope.good_email;
     };
 
