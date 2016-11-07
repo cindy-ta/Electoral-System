@@ -5,6 +5,7 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
     $scope.good_password_style = false;
     $scope.isManager = false;
     $scope.isLoggedIn = false;
+    $scope.good_email = false;
 
     function getUserAuthenticationAndValidate( user ) {
         $http.post('server/getUserAuthentication.php?user='+user).success(function (user_authentication) {
@@ -77,36 +78,53 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
 
     $scope.createAccount = function(){
 
-        $http.post('server/checkEmails.php?email=' + $scope.login.email).success(function (isEmailAvailable) {
-            //console.log("isEmailAvilalble: " + isEmailAvailable);
-            var store = isEmailAvailable;
-            //console.log("store: " + store);
-            //alert(typeof(store)); // type string
-            if (store.length > 1 ) {
-                //console.log("Email is available!!!! :)");
+        if ($scope.good_email == true) {
 
-                if($scope.login.password == $scope.login.password2) {
-                    var password = md5.createHash($scope.login.password)
+            $http.post('server/checkEmails.php?email=' + $scope.login.email).success(function (isEmailAvailable) {
+                //console.log("isEmailAvilalble: " + isEmailAvailable);
+                var store = isEmailAvailable;
+                //console.log("store: " + store);
+                //alert(typeof(store)); // type string
+                if (store.length > 1) {
+                    //console.log("Email is available!!!! :)");
 
-                    $http.post('server/createUser.php?email=' + $scope.login.email + '&password=' + password + '&user_type=' + $scope.login.user_type).success(function (msg) {
-                        console.log("msg : " + msg);
-                        $location.path("/login");
-                    });
-                }else
-                {
-                    $scope.message = "Passwords do not match";
+                    if ($scope.login.password == $scope.login.password2) {
+                        var password = md5.createHash($scope.login.password)
+
+                        $http.post('server/createUser.php?email=' + $scope.login.email + '&password=' + password + '&user_type=' + $scope.login.user_type).success(function (msg) {
+                            console.log("msg : " + msg);
+                            $location.path("/login");
+                        });
+                    } else {
+                        $scope.message = "Passwords do not match";
+                    }
+
                 }
+                else {
+                    //console.log("Email is not available.");
+                    $scope.message = "Account is already registered under this email. Try Logging in or inquiring about a Forgotten Password"
 
-            }
-            else {
-                //console.log("Email is not available.");
-                $scope.message = "Account is already registered under this email. Try Logging in or inquiring about a Forgotten Password"
+                }
+            })
+        }
+        else {
+            $scope.message = "Invalid email"
+        }
+    };
 
-            }
-        })
+    $scope.goodEmail = function(){
 
+        $scope.good_email = false;
+        var emailRegex = /^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
 
+        if(($scope.login.email.match(emailRegex)).length>0)
+        {
+            $scope.good_email = true;
+            console.log("Email is good");
+        }
 
+        console.log("Email is bad");
+        return $scope.good_email;
     };
 
     $scope.goodPassword = function(){
