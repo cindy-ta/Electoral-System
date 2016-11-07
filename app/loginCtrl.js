@@ -13,7 +13,7 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
             //$scope.message = $scope.login.password;
 
             if (user_authentication != {} ){
-                if (user_authentication/*[0]*/.password == /*md5.createHash(*/$scope.login.password/*)*/) {
+                if (user_authentication.password == md5.createHash($scope.login.password)) {
                     success = true;
                     startSessionAndGoToHomePage(user_authentication/*[0]*/);
                     $scope.message = "success";
@@ -50,6 +50,7 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
             $rootScope.session = null;
             $cookieStore.remove("session");
         })
+
     }
 
     $scope.redirectToCreateAccountPage = function(){
@@ -57,11 +58,18 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
     };
 
     $scope.createAccount = function(){
+        console.log("Create Account function reached");
         if($scope.login.password == $scope.login.password2) {
             var password = md5.createHash($scope.login.password)
-            $http.post('server/createUser.php?email=' + $scope.login.email + '&password=' + password + '&user_type=' + $scope.login.user_type).success(function () {
-                $scope.message = "A verification email has been sent to you."
-                $location.path("/login");
+            //console.log("Passwords match");
+            console.log("Password: " + $scope.login.password);
+            console.log("Email: " + $scope.login.email);
+            console.log("UserType: " + $scope.login.user_type);
+            $http.post('server/createUser.php?email=' + $scope.login.email + '&password=' + password + '&user_type=' + $scope.login.user_type).success(function (msg) {
+                console.log("MSG " + msg);
+                $scope.message = msg;
+                //$scope.message = "A verification email has been sent to you."
+                //$location.path("/login");
             });
         }else
         {

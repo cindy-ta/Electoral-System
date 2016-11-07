@@ -1,14 +1,15 @@
 <?php
     require_once '../includes/db.php'; // The mysql database connection script
-    $status = '%';
+    //$status = '%';
     if(isset($_GET['user'])){
         $user = $_GET['user'];
 
         $query="SELECT * FROM Users WHERE username='$user'";
-        $result = $mysqli->query($query) or die($mysqli->error.__LINE__);
+        $result = mysqli_query($db, $query);
+        //$result = $mysqli->query($query) or die($mysqli->error.__LINE__);
 
         # JSON-encode the response
-        echo $json_response = json_encode($result->fetch_assoc());
+        echo json_encode($result->fetch_assoc());
     }
 ?>
 
