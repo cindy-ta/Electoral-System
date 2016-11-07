@@ -21,7 +21,7 @@
             <input type="password" ng-model="login.password" name="password1" id="password1" tabindex="1" class="form-control" placeholder="Create Password" value="">
         </div>
         <div ng-hide="goodPassword()" style="color:#ff0000;font-size:8pt">
-            *Password must contain at least 6 characters, including at least one uppercase character and one number
+            *Password must contain at least 8 characters, including at least one uppercase character and one number
         </div>
         <div class="form-group">
             <label for="password2">Verify Password:</label>
@@ -36,5 +36,5 @@
         <button type="submit" class="btn btn-default">Register</button>
     </form>
 
-    <a href="../bootstrap/login.html">Already have an Account?</a>
+    <a ng-click="redirectToLoginPage()" class="register">Already have an Account?</a>
 </div>

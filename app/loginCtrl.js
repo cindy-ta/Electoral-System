@@ -15,7 +15,7 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
             if (user_authentication != {} ){
                 if (user_authentication.password == md5.createHash($scope.login.password)) {
                     success = true;
-                    startSessionAndGoToHomePage(user_authentication/*[0]*/);
+                    startSessionAndGoToHomePage(user_authentication);
                     $scope.message = "success";
                 }else{
                    $scope.message = "Incorrect Email/Password combination";
@@ -36,40 +36,50 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
             };
             $cookieStore.put("session", $rootScope.session );
             $scope.login.user_name = data
-            redirectToHome();
+            $location.path("/home");
         })
     }
 
-    function redirectToHome(){
+ /*   function redirectToHome(){
         $location.path("/home");
-    }
+    }*/
 
-    function endSession(){
+    $scope.endSession = function(){
         var old_session = $rootScope.session;
         $http.post('server/endSession.php?session='+old_session).success(function () {
             $rootScope.session = null;
             $cookieStore.remove("session");
+            $location.path('/login');
         })
 
     }
 
+    $scope.redirectToLoginPage = function(){
+        $location.path('/login');
+    }
+
+
     $scope.redirectToCreateAccountPage = function(){
         $location.path('/registration');
     };
+
+    $scope.redirectToHome = function(){
+        $location.path("/home");
+    }
 
     $scope.createAccount = function(){
         console.log("Create Account function reached");
         if($scope.login.password == $scope.login.password2) {
             var password = md5.createHash($scope.login.password)
             //console.log("Passwords match");
-            console.log("Password: " + $scope.login.password);
+            /*console.log("Password: " + $scope.login.password);
             console.log("Email: " + $scope.login.email);
-            console.log("UserType: " + $scope.login.user_type);
+            console.log("UserType: " + $scope.login.user_type);*/
             $http.post('server/createUser.php?email=' + $scope.login.email + '&password=' + password + '&user_type=' + $scope.login.user_type).success(function (msg) {
-                console.log("MSG " + msg);
-                $scope.message = msg;
+                //console.log("MSG " + msg);
+                //$scope.message = msg;
                 //$scope.message = "A verification email has been sent to you."
-                //$location.path("/login");
+                $location.path("/login");
             });
         }else
         {
@@ -82,12 +92,12 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
         //var validPassword = false;
         $scope.good_password_style = false;
         var passwordLength = $scope.login.password.length;
-        var letterNumber = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$/;
+        var letterNumber = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
         //$scope.message = ($scope.login.password.match(letterNumber));
 
         if(($scope.login.password.match(letterNumber)).length>0)
         {
-          if(passwordLength>=6){
+          if(passwordLength>=8){
               //validPassword = true;
               $scope.good_password_style = true;
           }

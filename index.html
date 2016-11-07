@@ -26,16 +26,18 @@
                 <div class="navbar-header">
                     <a class="navbar-brand">Electoral-System</a>
                 </div>
-                <ul class="nav navbar-nav">
-                    <li><a href="../bootstrap/dashboard.html">Home</a></li>
-                    <li><a href="../bootstrap/ballot.html">Ballot Page</a></li>
-                    <li><a href="profile.html">Profile Page</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="registration.html"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                    <li><a href="../bootstrap/login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                    <li><button ng-click="endSession()"> Logout</button></li>
-                </ul>
+                <div ng-controller="loginCtrl">
+                    <ul class="nav navbar-nav">
+                        <li><a ng-click="redirectToHome()">Home</a></li>
+                        <li><a href="../bootstrap/ballot.html">Ballot Page</a></li>
+                        <li><a href="profile.html">Profile Page</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a ng-click="redirectToCreateAccountPage()"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                        <li><a ng-click="redirectToLoginPage()"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                        <li><a ng-click="endSession()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                    </ul>
+                </div>
             </div>
         </nav><br><br>
         <div><br>
