@@ -83,13 +83,13 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
             //console.log("store: " + store);
             //alert(typeof(store)); // type string
             if (store.length > 1 ) {
-                console.log("Email is available!!!! :)");
+                //console.log("Email is available!!!! :)");
 
                 if($scope.login.password == $scope.login.password2) {
                     var password = md5.createHash($scope.login.password)
 
                     $http.post('server/createUser.php?email=' + $scope.login.email + '&password=' + password + '&user_type=' + $scope.login.user_type).success(function (msg) {
-
+                        console.log("msg : " + msg);
                         $location.path("/login");
                     });
                 }else
@@ -99,7 +99,7 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
 
             }
             else {
-                console.log("Email is not available.");
+                //console.log("Email is not available.");
                 $scope.message = "Account is already registered under this email. Try Logging in or inquiring about a Forgotten Password"
 
             }
@@ -116,7 +116,7 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
         var letterNumber = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
         //$scope.message = ($scope.login.password.match(letterNumber));
 
-        console.log("Hello = " + $scope.login.password);
+        //console.log("Hello = " + $scope.login.password);
 
         if(($scope.login.password.match(letterNumber)).length>0)
         {
