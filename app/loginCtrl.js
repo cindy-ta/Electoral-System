@@ -68,23 +68,33 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
     }
 
     $scope.createAccount = function(){
-        console.log("Create Account function reached");
-        if($scope.login.password == $scope.login.password2) {
-            var password = md5.createHash($scope.login.password)
-            //console.log("Passwords match");
-            /*console.log("Password: " + $scope.login.password);
-            console.log("Email: " + $scope.login.email);
-            console.log("UserType: " + $scope.login.user_type);*/
-            $http.post('server/createUser.php?email=' + $scope.login.email + '&password=' + password + '&user_type=' + $scope.login.user_type).success(function (msg) {
-                //console.log("MSG " + msg);
-                //$scope.message = msg;
-                //$scope.message = "A verification email has been sent to you."
-                $location.path("/login");
-            });
-        }else
-        {
-            $scope.message = "Passwords do not match";
-        }
+
+        $http.post('server/checkEmails.php?email=' + $scope.login.email).success(function (isEmailAvailable) {
+
+            if (store.length > 1 ) {
+                console.log("Email is available!!!! :)");
+
+                if($scope.login.password == $scope.login.password2) {
+                    var password = md5.createHash($scope.login.password)
+
+                    $http.post('server/createUser.php?email=' + $scope.login.email + '&password=' + password + '&user_type=' + $scope.login.user_type).success(function (msg) {
+
+                        $location.path("/login");
+                    });
+                }else
+                {
+                    $scope.message = "Passwords do not match";
+                }
+
+            }
+            else {
+                console.log("Email is not available.");
+                $scope.message = "Account is already registered under this email. Try Logging in or inquiring about a Forgotten Password"
+
+            }
+        })
+
+
 
     };
 
