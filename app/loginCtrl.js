@@ -1,4 +1,3 @@
-
 app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $location, $cookieStore){
     $scope.login = {};
     $scope.vaild_logins = [];
@@ -19,7 +18,7 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
                     startSessionAndGoToHomePage(user_authentication);
                     $scope.message = "success";
                 }else{
-                   $scope.message = "Incorrect Email/Password combination";
+                    $scope.message = "Incorrect Email/Password combination";
                 }
             }else{
                 $scope.message = "User not found";
@@ -41,9 +40,9 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
         })
     }
 
- /*   function redirectToHome(){
-        $location.path("/home");
-    }*/
+    /*   function redirectToHome(){
+     $location.path("/home");
+     }*/
 
     $scope.endSession = function(){
         var old_session = $rootScope.session;
@@ -71,7 +70,10 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
     $scope.createAccount = function(){
 
         $http.post('server/checkEmails.php?email=' + $scope.login.email).success(function (isEmailAvailable) {
-
+            //console.log("isEmailAvilalble: " + isEmailAvailable);
+            var store = isEmailAvailable;
+            //console.log("store: " + store);
+            //alert(typeof(store)); // type string
             if (store.length > 1 ) {
                 console.log("Email is available!!!! :)");
 
@@ -110,10 +112,10 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
 
         if(($scope.login.password.match(letterNumber)).length>0)
         {
-          if(passwordLength>=8){
-              //validPassword = true;
-              $scope.good_password_style = true;
-          }
+            if(passwordLength>=8){
+                //validPassword = true;
+                $scope.good_password_style = true;
+            }
         }
         //return validPassword;
         //$scope.message = $scope.good_password_style;
