@@ -4,6 +4,7 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
     $scope.vaild_logins = [];
     $scope.message = "";
     $scope.good_password_style = false;
+    $scope.isManager = false;
 
     function getUserAuthenticationAndValidate( user ) {
         $http.post('server/getUserAuthentication.php?user='+user).success(function (user_authentication) {
@@ -105,6 +106,8 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
         var letterNumber = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
         //$scope.message = ($scope.login.password.match(letterNumber));
 
+        console.log("Hello = " + $scope.login.password);
+
         if(($scope.login.password.match(letterNumber)).length>0)
         {
           if(passwordLength>=8){
@@ -115,6 +118,18 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
         //return validPassword;
         //$scope.message = $scope.good_password_style;
         return $scope.good_password_style;
+    };
+
+    $scope.usertype = function(){
+
+        $scope.isManager = false;
+
+        if($scope.login.user_type == "Manager")
+        {
+            $scope.isManager = true;
+        }
+
+        return !($scope.isManager);
     };
 
     $scope.validateLogin = function() {

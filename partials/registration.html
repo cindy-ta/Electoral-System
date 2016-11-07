@@ -28,7 +28,7 @@
             <input type="password" ng-model="login.password2" name="password2" id="password2" tabindex="2" class="form-control" placeholder="Verify Password">
         </div>
 
-        <div class="form-group">
+        <div ng-hide="usertype()" class="form-group">
             <label for="managerkey">Enter Manager Key:</label>
             <input type="password" ng-model="login.manager_key" name="password2" id="managerkey" tabindex="2" class="form-control" placeholder="Enter Manager Key">
         </div>
