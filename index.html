@@ -1,51 +1,50 @@
 <!DOCTYPE html>
 <html ng-app="app">
-    <head lang="en">
-        <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css"><link/>
+<head lang="en">
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css"><link/>
 
-        <script type="text/javascript" src="js/angular.min.js"></script>
-        <script type="text/javascript" src="js/angular-md5.min.js"></script>
-        <script type="text/javascript" src="js/angular-route.min.js"></script>
-        <script type="text/javascript" src="js/angular-uuid2.min.js"></script>
-        <script type="text/javascript" src="js/angular-cookies.min.js"></script>
-        <script type="text/javascript" src="js/angular-resource.min.js"></script>
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <script type="text/javascript" src="js/angular-md5.min.js"></script>
+    <script type="text/javascript" src="js/angular-route.min.js"></script>
+    <script type="text/javascript" src="js/angular-uuid2.min.js"></script>
+    <script type="text/javascript" src="js/angular-cookies.min.js"></script>
+    <script type="text/javascript" src="js/angular-resource.min.js"></script>
 
-        <script type="text/javascript" src="app/app.js"></script>
-        <script  type="text/javascript" src="app/loginCtrl.js"></script>
+    <script type="text/javascript" src="app/app.js"></script>
+    <script  type="text/javascript" src="app/loginCtrl.js"></script>
+    <script  type="text/javascript" src="app/dashboardCtrl.js"></script>
 
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Electoral System</title>
+    <title>Electoral System</title>
 
-    </head>
-    <body>
-        <nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand">Electoral-System</a>
-                </div>
-                <div ng-controller="loginCtrl">
-                    <ul class="nav navbar-nav">
-                        <li><a ng-hide="login_check()" ng-click="redirectToHome()">Home</a></li>
-                        <li><a ng-hide="login_check()" ng-click="redirectToBallotPage()">Ballot Page</a></li>
-                        <li><a ng-hide="login_check()" ng-click="redirectToProfile()">Profile Page</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a ng-hide="!login_check()" ng-click="redirectToCreateAccountPage()"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                        <li><a ng-hide="!login_check()" ng-click="redirectToLoginPage()"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                        <li><a ng-hide="login_check()"ng-click="endSession()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav><br><br>
-        <div><br>
-            {{ message }}
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand">Electoral-System</a>
         </div>
-        <!-- Includes login.html HERE -->
-        <div ng-view ></div>
-    </body>
+        <div ng-controller="loginCtrl">
+            <ul class="nav navbar-nav">
+                <li><a ng-hide="login_check()" ng-click="redirectToHome()">Home</a></li>
+                <li><a ng-hide="login_check()" ng-click="redirectToBallotPage()">Ballot Page</a></li>
+                <li><a ng-hide="login_check()" ng-click="redirectToProfile()">Profile Page</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a ng-hide="!login_check()" ng-click="redirectToCreateAccountPage()"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li><a ng-hide="!login_check()" ng-click="redirectToLoginPage()"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                <li><a ng-hide="login_check()"ng-click="endSession()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav><br><br>
+<div><br>
+    {{ message }}
+</div>
+<!-- Includes login.html HERE -->
+<div ng-view ></div>
+</body>
 </html>
-
-

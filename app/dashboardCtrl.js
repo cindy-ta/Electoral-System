@@ -1,13 +1,23 @@
-app.controller("dashboardCtrl", function(md5, $http, $scope, $rootScope, uuid2, $location, $cookieStore){
-    $scope.message = "";
-    $scope.dashboard = {};
+app.controller("dashboardCtrl", function($scope, $rootScope, $http, $location){
 
-    $scope.findElectionInfo = function()
-    {
-        $http.post('server/populateDashboard.php?election_id=' + $scope.dashboard.election_id).success(function (electionID) {
+    $scope.message = "Hello";
+    console.log("Triggered dashboardCtrl");
 
-            console.log(electionID);
 
-        });
-    }
+    $http.post('server/populateDashboard.php?').success(function (electionID) {
+
+        console.log("Election Info: " + electionID);
+
+        $scope.election_title = electionID.title;
+        $scope.election_startDate = electionID.start_date;
+        $scope.election_endDate = electionID.end_date;
+        $scope.election_description = electionID.description;
+    });
+
+
+
+    $scope.redirectToBallotPage = function() {
+        $location.path('/ballot');
+    };
+
 });

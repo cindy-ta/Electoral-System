@@ -132,7 +132,7 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
     $scope.goodEmail = function(){
 
         $scope.good_email = false;
-        var emailRegex = /^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
+        var emailRegex = /^[0-9a-zA-Z]+(\.[0-9a-zA-Z]+)*@[0-9a-zA-Z]+(\.[0-9a-zA-Z]+)*(\.[a-z]{2,4})$/;
 
         if(($scope.login.email.match(emailRegex)).length>0)
         {

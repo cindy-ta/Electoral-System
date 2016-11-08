@@ -12,8 +12,15 @@
 
     <!-- Project One -->
     <div class="row">
-        <label ng-model="dashboard.election_id" name="election_id">1</label>
 
+        <h3><div ng-bind-html="election_title"></div></h3>
+
+        <!-- CANDIDATE INFO-->
+
+        <h5><div ng-bind-html="election_endDate"></div>
+        <div ng-bind-html="election_startDate"></div></h5>
+
+        <p><div ng-bind-html="election_description"></p>
     </div>
 
     <div class="row">
