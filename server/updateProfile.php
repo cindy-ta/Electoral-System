@@ -56,7 +56,7 @@ if(isset($_GET['first_name']) && isset($_GET['last_name']) && isset($_GET['gover
         }
     }
 
-
+    echo $json_response = json_encode($success);
 
 }
 ?>
