@@ -63,16 +63,6 @@ require_once '../includes/db.php'; // The mysql database connection script
     $result += $mysqli->query($query) or die($mysqli->error.__LINE__); // appends candidates to the end of results??
 */
 
-/*
-
-$election_id = 1;
-
-    // ELECTION DETAILS: Title, description, start/end date.
-    $query="SELECT title FROM Elections WHERE election_id='$election_id'";
-    $election_title = $mysqli->query($query) or die($mysqli->error.__LINE__);
-
-    echo $json_response = json_encode($election_title->fetch_assoc());
-    */
 
 
 ?>

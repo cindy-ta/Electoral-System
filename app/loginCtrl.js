@@ -188,7 +188,6 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
 
     $scope.validateLogin = function() {
 
-        //$scope.message = $scope.login.user_name
         getUserAuthenticationAndValidate($scope.login.user_name)
     }
 

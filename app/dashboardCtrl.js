@@ -1,8 +1,6 @@
 app.controller("dashboardCtrl", function($scope, $rootScope, $http, $location){
 
     $scope.message = "Hello";
-    console.log("Triggered dashboardCtrl");
-
 
     $http.post('server/populateDashboard.php?').success(function (electionID) {
 
