@@ -1,6 +1,5 @@
 app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $location, $cookieStore){
     $scope.login = {};
-    $scope.verify = {};
     $scope.vaild_logins = [];
     $scope.message = "";
     $scope.good_password_style = false;
@@ -40,7 +39,6 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
             $cookieStore.put("session", $rootScope.session );
             $scope.login.user_name = data;
             $location.path("/home");
-            //$location.path('/profile');
         })
     }
 
@@ -97,7 +95,7 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
                             var manager_key = 0;
                             $http.post('server/createUser.php?email=' + $scope.login.email + '&password=' + password + '&user_type=' + $scope.login.user_type + '&manager_key=' + manager_key).success(function (msg) {
 
-                                $location.path("/verification");
+                                $location.path("/login");
                             });
 
                         } else {
@@ -114,7 +112,7 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
                         {
                             $scope.message = "This person is already registered."
                         }else if(msg.length == 4) {
-                            $location.path("/verification");
+                            $location.path("/login");
                         }else
                         {
                             $scope.message = "Manager details not found in database"
@@ -123,7 +121,7 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
                 }
             }
             else {
-                 $scope.message = "Passwords do not match";
+                $scope.message = "Passwords do not match";
             }
         }else {
             $scope.message = "Invalid email"
@@ -188,19 +186,7 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
 
     $scope.validateLogin = function() {
 
+        //$scope.message = $scope.login.user_name
         getUserAuthenticationAndValidate($scope.login.user_name)
-    }
-
-    $scope.verifyUser = function(){
-        var password = md5.createHash($scope.verify.password);
-        $http.post('server/verifyUser.php?user_name=' + $scope.verify.user_name + '&password=' + password + '&code=' + $scope.verify.code).success(function (msg) {
-            if(msg.length == 4)
-            {
-                $scope.message = "Unable to verify. Details might not be correct";
-            }else {
-                $location.path("/login");
-            }
-        });
-
     }
 });
