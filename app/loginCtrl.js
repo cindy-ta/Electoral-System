@@ -42,7 +42,7 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
         $http.post('server/startSession.php?session='+new_session).success(function (data) {
             $rootScope.session = {
                 session_id: new_session,
-                user_name: user.user_name,
+                user_name: user.username,
                 access: user.user_type
             };
             $cookieStore.put("session", $rootScope.session );

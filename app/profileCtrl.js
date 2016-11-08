@@ -1,12 +1,12 @@
 app.controller("profileCtrl", function(md5, $http, $scope, $rootScope, uuid2, $location){
 
-    $scope.message = "Hello";
-
+    $scope.message = "";
+    $scope.profile = {};
 
     $scope.updateProfile = function() {
         $http.post('server/updateProfile.php?first_name='+$scope.profile.first_name+
                                             '&last_name='+$scope.profile.last_name+
-                                            '&government_ID'+$scope.profile.government_ID+
+                                            '&government_ID='+$scope.profile.government_ID+
                                             '&age='+$scope.profile.age+
                                             '&gender='+$scope.profile.gender+
                                             '&contact_number='+$scope.profile.contact_number+
@@ -17,9 +17,10 @@ app.controller("profileCtrl", function(md5, $http, $scope, $rootScope, uuid2, $l
                                             '&country='+$scope.profile.country+
                                             '&zip_code='+$scope.profile.zip_code+
                                             '&user_name='+$rootScope.session.user_name+
-                                            '&user_type='+$rootScope.session.user_type  ).success(function (profile) {
+                                            '&user_type='+$rootScope.session.access  ).success(function (profile) {
 
-
+            console.log("User_type = " + $rootScope.session.access);
+            console.log("User_name = " + $rootScope.session.user_name);
 
             if (profile.length == 4){
                 $scope.message = "Profile Successfully Updated";
@@ -43,10 +44,6 @@ app.controller("profileCtrl", function(md5, $http, $scope, $rootScope, uuid2, $l
 
             return $scope.all_fields_filled;
         };*/
-
-        console.log($scope.profile.first_name);
-        console.log($scope.profile.state);
-        console.log($scope.profile.gender);
 
     }
 
