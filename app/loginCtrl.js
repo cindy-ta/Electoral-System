@@ -85,6 +85,10 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
         $location.path('/profile');
     }
 
+    $scope.redirectToVerification = function() {
+        $location.path('/verification');
+    }
+
     $scope.createAccount = function(){
 
         if ($scope.good_email == true) {
@@ -211,4 +215,15 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
         });
 
     }
+
+    $scope.resendEmail = function() {
+
+        $http.post('server/resendEmail.php?email_address=' + $scope.verify.email_addr).success(function (emailAddress) {
+            //$scope.message = "Email has been resent.";
+            console.log("Here???");
+            $scope.message = emailAddress;
+        });
+
+    }
+
 });

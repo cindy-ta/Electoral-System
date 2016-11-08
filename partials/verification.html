@@ -1,5 +1,8 @@
 <div class="container" ng-controller="loginCtrl">
     <h1>Verify Your Account</h1>
+
+    {{ message }}
+
     <form ng-submit="verifyUser()">
         <div class="form-group">
             <label for="vCode">Verification Code:</label>
@@ -16,5 +19,16 @@
 
         <button type="submit" class="btn btn-default">Verify Account</button>
 
+    </form>
+
+    <br><br><br>
+
+    <h3>Resend Email Form</h3>
+    <form ng-submit="resendEmail()">
+        <div class="form-group">
+            <label for="email_addr">Enter in Email to Resend Code:</label>
+            <input type="text" ng-model="verify.email_addr" name="email_addr" id="email_addr" tabindex="1" class="form-control" placeholder="Email" value="">
+        </div>
+        <button type="submit" class="btn btn-default">Resend Email</button>
     </form>
 </div>
