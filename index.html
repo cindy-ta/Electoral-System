@@ -35,6 +35,7 @@
                 <li><a ng-hide="login_check()" ng-click="redirectToProfile()">Profile Page</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <li><a ng-hide="!login_check()"ng-click="redirectToVerification()"><span class="glyphicon glyphicon-log-out"></span> Verify Account</a></li>
                 <li><a ng-hide="!login_check()" ng-click="redirectToCreateAccountPage()"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
                 <li><a ng-hide="!login_check()" ng-click="redirectToLoginPage()"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                 <li><a ng-hide="login_check()"ng-click="endSession()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
