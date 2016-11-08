@@ -2,4 +2,9 @@ app.controller("profileCtrl", function(md5, $http, $scope, $rootScope, uuid2, $l
     $scope.message = "";
 
 
+    $scope.updateProfile = function() {
+
+
+    }
+
 });
