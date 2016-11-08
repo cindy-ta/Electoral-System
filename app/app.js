@@ -45,6 +45,11 @@ app.config(['$routeProvider', '$sceProvider',
                 templateUrl: 'partials/dashboard.html',
                 controller: 'homeCtrl'
             })
+            .when('/verification', {
+                title: 'Verification',
+                templateUrl: 'partials/verification.html',
+                controller: 'loginCtrl'
+            })
             .when('/', {
                 title: 'Login',
                 templateUrl: 'partials/login.html',
@@ -77,11 +82,11 @@ function getSessionFromCookies($rootScope, $cookieStore){
 
 function redirectInvalidRoutes($rootScope, nextUrl, $location){
     if($rootScope.session == null ) {
-        if (nextUrl != '/' && nextUrl != '/login' && nextUrl != '/registration'){
+        if (nextUrl != '/' && nextUrl != '/login' && nextUrl != '/registration' && nextUrl != '/verification'){
             $location.path("/login");
         }
     }else{
-        if (nextUrl == '/' || nextUrl == '/login' || nextUrl == '/registration') {
+        if (nextUrl == '/' || nextUrl == '/login' || nextUrl == '/registration' || nextUrl == '/verification') {
             $location.path("/home");
         }
     }
