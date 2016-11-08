@@ -40,6 +40,7 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
             $cookieStore.put("session", $rootScope.session );
             $scope.login.user_name = data;
             $location.path("/home");
+            //$location.path('/profile');
         })
     }
 

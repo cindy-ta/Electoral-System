@@ -1,11 +1,79 @@
 <div class="container" ng-controller="profileCtrl">
-    <h1>Manage Your Account</h1><br/>
+    <h1>Manage Your Profile</h1><br/>
 
     {{ message }}
 
 
     <form ng-submit="updateProfile()">
         <div class="form-group">
+            <div class="col-xs-4">
+                <label for="first_name">First Name:</label>
+                <input ng-model="profile.first_name" class="form-control" id="first_name" type="text">
+            </div>
+            <div class="col-xs-4">
+                <label for="last_name">Last Name:</label>
+                <input ng-model="profile.last_name" class="form-control" id="last_name" type="text">
+            </div>
+            <div class="col-xs-4">
+                <label for="government_ID">Government ID:</label>
+                <input ng-model="profile.government_ID" class="form-control" id="government_ID" type="text">
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-xs-4">
+                <label for="age">Age:</label>
+                <input ng-model="profile.age" class="form-control" id="age" type="text">
+            </div>
+            <div class="col-xs-4">
+                <label for="gender">Gender:</label>
+                <select ng-model="profile.gender" name="gender" class="form-control" id="gender">
+                    <option> --Select-- </option>
+                    <option>Male</option>
+                    <option>Female</option>
+                </select>
+            </div>
+            <div class="col-xs-4">
+                <label for="contact_number">Contact Number:</label>
+                <input ng-model="profile.contact_number" class="form-control" id="contact_number" type="text">
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-xs-6">
+                <label for="address_line1">Address Line 1:</label>
+                <input ng-model="profile.address_line1" class="form-control" id="address_line1" type="text">
+            </div>
+            <div class="col-xs-6">
+                <label for="address_line2">Address Line 2:</label>
+                <input ng-model="profile.address_line2" class="form-control" id="address_line2" type="text">
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-xs-4">
+                <label for="city">City:</label>
+                <input ng-model="profile.city" class="form-control" id="city" type="text">
+            </div>
+            <div class="col-xs-2">
+                <label for="state">State:</label>
+                <input ng-model="profile.state" class="form-control" id="state" type="text">
+            </div>
+            <div class="col-xs-3">
+                <label for="country">Country:</label>
+                <input ng-model="profile.country" class="form-control" id="country" type="text">
+            </div>
+            <div class="col-xs-3">
+                <label for="zip_code">Zip Code:</label>
+                <input ng-model="profile.zip_code" class="form-control" id="zip_code" type="text">
+            </div>
+        </div>
+
+
+        <!--<div class="form-group">
             <label for="first_name">First Name:</label>
             <input type="text" ng-model="profile.first_name" name="first_name" id="first_name" tabindex="1" class="form-control" placeholder="First Name" value="">
         </div>
@@ -55,9 +123,11 @@
         <div class="form-group">
             <label for="zip_code">Zip Code:</label>
             <input type="text" ng-model="profile.zip_code" name="zip_code" id="zip_code" tabindex="1" class="form-control" placeholder="Zip Code" value="">
-        </div>
+        </div> -->
 
         <button type="submit" class="btn btn-default">Submit Profile Info</button>
+
+
     </form>
 
 
