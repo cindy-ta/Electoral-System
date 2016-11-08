@@ -50,6 +50,11 @@ app.config(['$routeProvider', '$sceProvider',
                 templateUrl: 'partials/login.html',
                 controller: 'loginCtrl'
             })
+            .when('/profile', {
+                title: 'profile',
+                templateUrl: 'partials/profile.html',
+                controller: 'profileCtrl'
+            })
             .otherwise({
                 redirectTo: '/login'
             });
