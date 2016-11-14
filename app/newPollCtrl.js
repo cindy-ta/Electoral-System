@@ -1,5 +1,6 @@
 app.controller("newPollCtrl", function($scope, $rootScope, $http){
 
+    $scope.message = "";
     $scope.newpoll = {};
     $scope.candidates = [];
     $scope.precincts = [];
@@ -22,6 +23,23 @@ app.controller("newPollCtrl", function($scope, $rootScope, $http){
     $scope.removePrecinct = function() {
         var lastItem = $scope.precincts.length-1;
         $scope.precincts.splice(lastItem);
+    };
+
+    $scope.allExistingCandidates = function() {
+        $http.post('server/allExistingCandidates.php?').success(function (allCandidates) {
+            //$scope.message = allCandidates;
+        })
+
+    };
+
+    $scope.allExistingManagers = function() {
+        $http.post('server/allExistingManagers.php?').success(function (allManagers) {
+            $scope.message = allManagers;
+            console.log(allManagers);
+            return allManagers;
+
+        })
+
     };
 
     $scope.updateProfile = function() {

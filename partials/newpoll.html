@@ -1,6 +1,8 @@
 <div class="container" ng-controller="newPollCtrl">
     <h1>Create New Poll</h1><br/>
 
+    {{ message }}
+
     <form ng-submit="createNewPoll">
         <div class="form-group">
             <label for="newpoll.title">Election Title:</label>
@@ -26,6 +28,13 @@
         <div class="form-group">
             <label>Candidates:</label><br>
 
+            <select ng-model="candidate.existing" name="candidate.existing" id="candidate.existing">
+                <option value="">- Select Existing Candidate -</option>
+                <option>Existing Candidate 1</option>
+                <option>Existing Candidate 2</option>
+            </select>
+            <br/><br/>
+
             <fieldset  data-ng-repeat="candidate in candidates">
                 <input type="text" ng-model="candidate.firstname" name="firstname" placeholder="Candidate's First Name">
                 <input type="text" ng-model="candidate.lastname" name="lastname" placeholder="Candidate's Last Name">
@@ -41,7 +50,7 @@
                 <button class="remove" ng-show="$last" ng-click="removeCandidate()">Remove Candidate</button>
 
             </fieldset>
-            <button class="addfields" ng-click="addNewCandidate()">Add Candidate</button>
+            <button class="addfields" ng-click="addNewCandidate()">Create New Candidate</button>
         </div>
 
         <div class="form-group">
@@ -51,10 +60,12 @@
                 <input type="text" ng-model="precinct.zipcode_start" name="precinct.zipcode_start" placeholder="Precinct Start">
                 <label> to </label>
                 <input type="text" name="precinct.zipcode_end" id="precinct.zipcode_end" placeholder="Precinct End">
-                <select ng-model="precinct.manager" name="precinct.manager" id="precinct.manager">
-                    <option>ManagerID 1</option>
-                    <option>ManagerID 2</option>
+
+
+                <select ng-options="manager.last_name for manager in allExistingManagers"  name="precinct.manager" id="precinct.manager">
+
                 </select>
+
 
                 <button class="remove" ng-show="$last" ng-click="removePrecinct()">Remove Precinct</button>
 
