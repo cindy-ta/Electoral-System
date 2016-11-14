@@ -47,7 +47,7 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
             };
             $cookieStore.put("session", $rootScope.session );
             $scope.login.user_name = data;
-            $location.path("/home");
+            //$location.path("/home");
         })
     }
 
@@ -216,6 +216,24 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
         }
 
         return !($scope.isAdmin);
+    };
+
+    $scope.profile_check = function(){
+
+        $scope.isProfileUpdated = false;
+
+        if ($scope.login_check() == false) {
+
+            $http.post('server/checkProfile.php?user_name=' + $rootScope.session.user_name + '&user_type=' + $rootScope.session.access).success(function (updatedProfile) {
+                if(updatedProfile.length == 4){
+                    $scope.isProfileUpdated == true;
+                    console.log("Profile has been updated")
+                }else{
+                    console.log("Not updated");
+                }
+            });
+        }
+        return !($scope.isProfileUpdated);
     };
 
     $scope.validateLogin = function() {
