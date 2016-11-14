@@ -205,6 +205,19 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
         return !($scope.isManager);
     };
 
+    $scope.admin_check = function(){
+
+        $scope.isAdmin = false;
+
+        if ($scope.login_check() == false) {
+            if ($rootScope.session.access == "Admin") {
+                $scope.isAdmin = true;
+            }
+        }
+
+        return !($scope.isAdmin);
+    };
+
     $scope.validateLogin = function() {
 
         //$scope.message = $scope.login.user_name

@@ -34,7 +34,7 @@
                 <li><a ng-hide="login_check()" ng-click="redirectToHome()">Home</a></li>
                 <li><a ng-hide="login_check()" ng-click="redirectToBallotPage()">Ballot Page</a></li>
                 <li><a ng-hide="login_check()" ng-click="redirectToProfile()">Profile Page</a></li>
-                <li><a ng-hide="login_check()" ng-click="redirectToNewPoll()">New Poll Page</a></li>
+                <li><a ng-hide="admin_check()" ng-click="redirectToNewPoll()">New Poll Page</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a ng-hide="!login_check()"ng-click="redirectToVerification()"><span class="glyphicon glyphicon-log-out"></span> Verify Account</a></li>
