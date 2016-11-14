@@ -1,147 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Electoral System</title>
-
-    <!-- Bootstrap -->
-    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-
-    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.9.1.js" type="text/javascript"></script>
-    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
-    <![endif]-->
-
-    <script src="../bootstrap/angular/angular.min.js"></script>
-    <script src="../bootstrap/angular/index.js"></script>
-</head>
-<body>
-
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand">Electoral-System</a>
-        </div>
-        <ul class="nav navbar-nav">
-            <li><a href="../bootstrap/dashboard.html">Home</a></li>
-            <li><a href="../bootstrap/ballot.html">Ballot Page</a></li>
-            <li class="active"><a href="../bootstrap/newpoll.html">Create Poll</a></li>
-            <li><a href="profile.html">Profile Page</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="registration.html"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-            <li><a href="../bootstrap/login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-        </ul>
-    </div>
-</nav><br><br>
-
-<div class="container">
+<div class="container" ng-controller="newPollCtrl">
     <h1>Create New Poll</h1><br/>
 
-    <form>
+    <form ng-submit="createNewPoll">
         <div class="form-group">
             <label for="email">Election Title:</label>
             <input type="text" name="email" id="email" tabindex="1" class="form-control" placeholder="Enter Election Title" value="">
         </div>
         <div class="form-group">
             <label for="description">Election Description:</label>
-            <input type="password" name="description" id="description" tabindex="1" class="form-control" placeholder="Election Description" value="">
+            <input type="text" name="description" id="description" tabindex="1" class="form-control" placeholder="Election Description" value="">
         </div>
         <div class="form-group">
             <label for="location">Election Location:</label>
-            <input type="password" name="location" id="location" tabindex="2" class="form-control" placeholder="Election Location">
+            <input type="text" name="location" id="location" tabindex="2" class="form-control" placeholder="Election Location">
         </div>
 
         <div class="form-group">
             <label>Election Precinct Range:</label>
-            <b>00000</b> <input id="ex2" type="text" class="span2" value="" data-slider-min="00000" data-slider-max="99999" data-slider-step="5" data-slider-value="[250,450]"/> <b>99999</b>
+            <input type="text" name="precinct_start" id="precinct_start" tabindex="3" class="form-control" placeholder="Precinct Start">
+            <label> to </label>
+            <input type="text" name="precinct_end" id="precinct_end" tabindex="4" class="form-control" placeholder="Precinct End">
         </div>
 
-        <label>Election Time Constraints:</label>
-        <div class="container">
-            <div class='col-md-5'>
-                <div class="form-group">
-                    <div class='input-group date' id='datetimepicker6'>
-                        <input type='text' class="form-control" />
-                        <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                    </div>
-                </div>
-            </div>
-
-            <div class='col-md-5'>
-                <div class="form-group">
-                    <div class='input-group date' id='datetimepicker7'>
-                        <input type='text' class="form-control" />
-                        <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                    </div>
-                </div>
-            </div>
+        <div class="form-group">
+            <label>Election Time Constraints:</label>
+            <input type="text" name="datetime_start" id="datetime_start" tabindex="4" class="form-control" placeholder="Start Date Time">
+            <input type="text" name="datetime_end" id="datetime_end" tabindex="4" class="form-control" placeholder="End Date Time">
         </div>
 
         <div class="form-group">
             <label>Candidates:</label>
-            <div class="checkbox">
-                <label><input type="checkbox" value="">Hillary Clinton</label>
-            </div>
-            <div class="checkbox">
-                <label><input type="checkbox" value="">Donald Trump</label>
-            </div>
-            <div class="checkbox disabled">
-                <label><input type="checkbox" value="" disabled>Anthony Maiers</label>
-            </div>
-            <div class="checkbox">
-                <label><input type="checkbox" value="">Mohit Navlakha</label>
-            </div>
-            <div class="checkbox">
-                <label><input type="checkbox" value="">Cindy Ta</label>
-            </div>
-            <a href="../bootstrap/dashboard.html">Create New Candidate</a>
+
+            <fieldset  data-ng-repeat="choice in choices">
+                <input type="text" ng-model="choice.firstname" name="firstname" placeholder="Candidate's First Name">
+                <input type="text" ng-model="choice.lastname" name="lastname" placeholder="Candidate's Last Name">
+                <select ng-model="choice.partyname" name="partyname" tabindex="1" class="form-control" id="designation">
+                    <option>Democratic</option>
+                    <option>Republican</option>
+                    <option>Independent</option>
+                </select>
+                <input type="text" ng-model="choice.designation" name="designation" placeholder="Candidate's Designation">
+                <input type="text" ng-model="choice.biography" name="biography" placeholder="Candidate's Biography">
+                <input type="text" ng-model="choice.website" name="website" placeholder="Candidate's Website">
+
+                <button class="remove" ng-show="$last" ng-click="removeChoice()">Remove Candidate</button>
+
+            </fieldset>
+            <button class="addfields" ng-click="addNewChoice()">Add Candidate</button>
         </div>
 
-        <a href="verification.html" class="btn btn-default">Register</a>
+        <div class="form-group">
+            <label>Election Level:</label>
+            <input type="text" name="election_level" id="election_level" tabindex="4" class="form-control" placeholder="Election Level">
+        </div>
+
+        <button type="submit" class="btn btn-default">Create New Poll</button>
     </form>
 </div>
-
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="../bootstrap/js/bootstrap.min.js"></script>
-
-<script type="text/javascript">
-    $(function () {
-        $('#datetimepicker6').datetimepicker();
-        $('#datetimepicker7').datetimepicker({
-            useCurrent: false //Important! See issue #1075
-        });
-        $("#datetimepicker6").on("dp.change", function (e) {
-            $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
-        });
-        $("#datetimepicker7").on("dp.change", function (e) {
-            $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
-        });
-    });
-
-    $('#ex2').bootstrapSlider({
-        formatter: function(value) {
-            return 'Current value: ' + value;
-        }
-    });
-
-</script>
-
-
-</body>
-</html>

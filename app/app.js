@@ -60,6 +60,16 @@ app.config(['$routeProvider', '$sceProvider',
                 templateUrl: 'partials/profile.html',
                 controller: 'profileCtrl'
             })
+            .when('/newpoll', {
+                title: 'newpoll',
+                templateUrl: 'partials/newpoll.html',
+                controller: 'newPollCtrl'
+            })
+            .when('/ballot', {
+                title: 'ballot',
+                templateUrl: 'partials/ballot.html',
+                controller: ''
+            })
             .otherwise({
                 redirectTo: '/login'
             });

@@ -89,6 +89,14 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
         $location.path('/verification');
     }
 
+    $scope.redirectToNewPoll = function(){
+        $location.path('/newpoll');
+    };
+
+    $scope.redirectToBallotPage = function(){
+        $location.path("/ballot");
+    }
+
     $scope.createAccount = function(){
 
         if ($scope.good_email == true) {
