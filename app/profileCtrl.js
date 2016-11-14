@@ -28,22 +28,7 @@ app.controller("profileCtrl", function(md5, $http, $scope, $rootScope, uuid2, $l
                 $scope.message = "Not updated successfully";
             }
 
-
         });
-
-
-       /* $scope.validFields = function(){
-
-            $scope.all_fields_filled = false;
-            if($scope.profile.first_name != null)
-                if($scope.profile.last_name != null)
-                    if($scope.profile.government_ID != null)
-                        if($scope.profile.age != null)
-                            if($scope.profile.gender != "Male" & $scope.profile.gender != "Female")
-
-
-            return $scope.all_fields_filled;
-        };*/
 
     }
 
