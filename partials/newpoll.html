@@ -3,55 +3,63 @@
 
     <form ng-submit="createNewPoll">
         <div class="form-group">
-            <label for="email">Election Title:</label>
-            <input type="text" name="email" id="email" tabindex="1" class="form-control" placeholder="Enter Election Title" value="">
-        </div>
-        <div class="form-group">
-            <label for="description">Election Description:</label>
-            <input type="text" name="description" id="description" tabindex="1" class="form-control" placeholder="Election Description" value="">
-        </div>
-        <div class="form-group">
-            <label for="location">Election Location:</label>
-            <input type="text" name="location" id="location" tabindex="2" class="form-control" placeholder="Election Location">
+            <label for="newpoll.title">Election Title:</label>
+            <input type="text" ng-model="newpoll.title" name="newpoll.title" id="newpoll.title" tabindex="1" class="form-control" placeholder="Election Title">
         </div>
 
         <div class="form-group">
-            <label>Election Precinct Range:</label>
-            <input type="text" name="precinct_start" id="precinct_start" tabindex="3" class="form-control" placeholder="Precinct Start">
-            <label> to </label>
-            <input type="text" name="precinct_end" id="precinct_end" tabindex="4" class="form-control" placeholder="Precinct End">
+            <label for="newpoll.description">Election Description:</label>
+            <input type="text" name="newpoll.description" id="newpoll.description" tabindex="2" class="form-control" placeholder="Election Description">
         </div>
 
         <div class="form-group">
             <label>Election Time Constraints:</label>
-            <input type="text" name="datetime_start" id="datetime_start" tabindex="4" class="form-control" placeholder="Start Date Time">
-            <input type="text" name="datetime_end" id="datetime_end" tabindex="4" class="form-control" placeholder="End Date Time">
+            <input type="text" name="newpoll.datetime_start" id="datetime_start" tabindex="6" class="form-control" placeholder="Start Date Time">
+            <input type="text" name="newpoll.datetime_end" id="datetime_end" tabindex="7" class="form-control" placeholder="End Date Time">
         </div>
 
         <div class="form-group">
-            <label>Candidates:</label>
+            <label>Election Location Level:</label>
+            <input type="text" name="newpoll.election_level" id="election_level" tabindex="8" class="form-control" placeholder="Election Level">
+        </div>
 
-            <fieldset  data-ng-repeat="choice in choices">
-                <input type="text" ng-model="choice.firstname" name="firstname" placeholder="Candidate's First Name">
-                <input type="text" ng-model="choice.lastname" name="lastname" placeholder="Candidate's Last Name">
-                <select ng-model="choice.partyname" name="partyname" tabindex="1" class="form-control" id="designation">
+        <div class="form-group">
+            <label>Candidates:</label><br>
+
+            <fieldset  data-ng-repeat="candidate in candidates">
+                <input type="text" ng-model="candidate.firstname" name="firstname" placeholder="Candidate's First Name">
+                <input type="text" ng-model="candidate.lastname" name="lastname" placeholder="Candidate's Last Name">
+                <select ng-model="candidate.partyname" name="partyname" tabindex="1" class="form-control" id="designation">
                     <option>Democratic</option>
                     <option>Republican</option>
                     <option>Independent</option>
                 </select>
-                <input type="text" ng-model="choice.designation" name="designation" placeholder="Candidate's Designation">
-                <input type="text" ng-model="choice.biography" name="biography" placeholder="Candidate's Biography">
-                <input type="text" ng-model="choice.website" name="website" placeholder="Candidate's Website">
+                <input type="text" ng-model="candidate.designation" name="designation" placeholder="Candidate's Designation">
+                <input type="text" ng-model="candidate.biography" name="biography" placeholder="Candidate's Biography">
+                <input type="text" ng-model="candidate.website" name="website" placeholder="Candidate's Website">
 
-                <button class="remove" ng-show="$last" ng-click="removeChoice()">Remove Candidate</button>
+                <button class="remove" ng-show="$last" ng-click="removeCandidate()">Remove Candidate</button>
 
             </fieldset>
-            <button class="addfields" ng-click="addNewChoice()">Add Candidate</button>
+            <button class="addfields" ng-click="addNewCandidate()">Add Candidate</button>
         </div>
 
         <div class="form-group">
-            <label>Election Level:</label>
-            <input type="text" name="election_level" id="election_level" tabindex="4" class="form-control" placeholder="Election Level">
+            <label>Election Precinct Range with Manager Assignment:</label><br>
+
+            <fieldset  data-ng-repeat="precinct in precincts">
+                <input type="text" ng-model="precinct.zipcode_start" name="precinct.zipcode_start" placeholder="Precinct Start">
+                <label> to </label>
+                <input type="text" name="precinct.zipcode_end" id="precinct.zipcode_end" placeholder="Precinct End">
+                <select ng-model="precinct.manager" name="precinct.manager" id="precinct.manager">
+                    <option>ManagerID 1</option>
+                    <option>ManagerID 2</option>
+                </select>
+
+                <button class="remove" ng-show="$last" ng-click="removePrecinct()">Remove Precinct</button>
+
+            </fieldset>
+            <button class="addfields" ng-click="addNewPrecinct()">Add Precinct</button>
         </div>
 
         <button type="submit" class="btn btn-default">Create New Poll</button>
