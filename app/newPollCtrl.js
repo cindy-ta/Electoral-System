@@ -3,11 +3,13 @@ app.controller("newPollCtrl", function($scope, $rootScope, $http){
     $scope.message = "";
     $scope.newpoll = {};
     $scope.candidates = [];
+    $scope.existingCandidates = [];
     $scope.precincts = [];
+    $scope.displayExistingCandidates = [];
 
     $scope.addNewCandidate = function() {
         var newItemNo = $scope.candidates.length+1;
-        $scope.candidates.push({'id':'choice'+newItemNo});
+        $scope.candidates.push({'id':'candidate'+newItemNo});
     };
 
     $scope.removeCandidate = function() {
@@ -15,9 +17,19 @@ app.controller("newPollCtrl", function($scope, $rootScope, $http){
         $scope.candidates.splice(lastItem);
     };
 
+    $scope.addNewExistingCandidate = function() {
+        var newItemNo = $scope.existingCandidates.length+1;
+        $scope.existingCandidates.push({'id':'existingCandidate'+newItemNo});
+    };
+
+    $scope.removeExistingCandidate = function() {
+        var lastItem = $scope.existingCandidates.length-1;
+        $scope.existingCandidates.splice(lastItem);
+    };
+
     $scope.addNewPrecinct = function() {
         var newItemNo = $scope.precincts.length+1;
-        $scope.precincts.push({'id':'choice'+newItemNo});
+        $scope.precincts.push({'id':'manager'+newItemNo});
     };
 
     $scope.removePrecinct = function() {
@@ -25,24 +37,24 @@ app.controller("newPollCtrl", function($scope, $rootScope, $http){
         $scope.precincts.splice(lastItem);
     };
 
-    $scope.allExistingCandidates = function() {
-        $http.post('server/allExistingCandidates.php?').success(function (allCandidates) {
-            //$scope.message = allCandidates;
-        })
+    $http.post('server/allExistingManagers.php?').success(function (managers) {
+        $scope.allManagers = managers;
+        //console.log(managers);
 
-    };
+    });
 
-    $scope.allExistingManagers = function() {
-        $http.post('server/allExistingManagers.php?').success(function (allManagers) {
-            $scope.message = allManagers;
-            console.log(allManagers);
-            return allManagers;
+    $http.post('server/allExistingCandidates.php?').success(function (candidates) {
+        $scope.allCandidates = candidates;
+        //console.log(managers);
 
-        })
+    });
 
-    };
+    $scope.changedValue = function(item) {
+        $scope.existingCandidates = item;
+        //$scope.displayExistingCandidates.push(item.)
+    }
 
-    $scope.updateProfile = function() {
+    $scope.createNewPoll = function() {
         $http.post('server/newpoll.php?title=' + $scope.newpoll.title +
             '&description=' + $scope.newpoll.description +
             '&start_date=' + $scope.newpoll.datetime_start +

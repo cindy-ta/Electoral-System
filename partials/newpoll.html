@@ -3,6 +3,12 @@
 
     {{ message }}
 
+    {{ existingCandidates }}
+
+    {{ candidates }}
+
+    {{ precincts }}
+
     <form ng-submit="createNewPoll">
         <div class="form-group">
             <label for="newpoll.title">Election Title:</label>
@@ -28,14 +34,19 @@
         <div class="form-group">
             <label>Candidates:</label><br>
 
-            <select ng-model="candidate.existing" name="candidate.existing" id="candidate.existing">
-                <option value="">- Select Existing Candidate -</option>
-                <option>Existing Candidate 1</option>
-                <option>Existing Candidate 2</option>
-            </select>
+            <fieldset data-ng-repeat="existingCandidate in existingCandidates">
+                <select data-ng-options="candidate.first_name + ' ' + candidate.last_name for candidate in allCandidates" ng-model="existing_candidate" ng-change="changedValue(existing_candidate)" name="existing_candidate" id="existing_candidate">
+                    <option value="">- Select Existing Candidate -</option>
+                </select>
+                <button class="remove" ng-show="$last" ng-click="removeExistingCandidate()">Remove Existing Candidate</button>
+
+            </fieldset>
+            <button class="addfields" ng-click="addNewExistingCandidate()">Add Existing Candidate</button>
+
+
             <br/><br/>
 
-            <fieldset  data-ng-repeat="candidate in candidates">
+            <fieldset data-ng-repeat="candidate in candidates">
                 <input type="text" ng-model="candidate.firstname" name="firstname" placeholder="Candidate's First Name">
                 <input type="text" ng-model="candidate.lastname" name="lastname" placeholder="Candidate's Last Name">
                 <select ng-model="candidate.partyname" name="partyname" tabindex="1" class="form-control" id="designation">
@@ -56,14 +67,14 @@
         <div class="form-group">
             <label>Election Precinct Range with Manager Assignment:</label><br>
 
-            <fieldset  data-ng-repeat="precinct in precincts">
+            <fieldset data-ng-repeat="precinct in precincts">
                 <input type="text" ng-model="precinct.zipcode_start" name="precinct.zipcode_start" placeholder="Precinct Start">
                 <label> to </label>
                 <input type="text" name="precinct.zipcode_end" id="precinct.zipcode_end" placeholder="Precinct End">
 
 
-                <select ng-options="manager.last_name for manager in allExistingManagers"  name="precinct.manager" id="precinct.manager">
-
+                <select ng-options="manager.manager_id for manager in allManagers" ng-model="precinct.manager" name="precinct.manager" id="precinct.manager">
+                    <option value="">- Select Manager -</option>
                 </select>
 
 
