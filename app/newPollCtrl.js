@@ -5,7 +5,6 @@ app.controller("newPollCtrl", function($scope, $rootScope, $http){
     $scope.candidates = [];
     $scope.existingCandidates = [];
     $scope.precincts = [];
-    $scope.displayExistingCandidates = [];
 
     $scope.addNewCandidate = function() {
         var newItemNo = $scope.candidates.length+1;
@@ -46,13 +45,13 @@ app.controller("newPollCtrl", function($scope, $rootScope, $http){
     $http.post('server/allExistingCandidates.php?').success(function (candidates) {
         $scope.allCandidates = candidates;
         //console.log(managers);
-
     });
 
-    $scope.changedValue = function(item) {
+
+
+    /*$scope.changedValue = function(item) {
         $scope.existingCandidates = item;
-        //$scope.displayExistingCandidates.push(item.)
-    }
+    }*/
 
     $scope.createNewPoll = function() {
         $http.post('server/newpoll.php?title=' + $scope.newpoll.title +

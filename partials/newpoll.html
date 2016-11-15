@@ -35,9 +35,10 @@
             <label>Candidates:</label><br>
 
             <fieldset data-ng-repeat="existingCandidate in existingCandidates">
-                <select data-ng-options="candidate.first_name + ' ' + candidate.last_name for candidate in allCandidates" ng-model="existing_candidate" ng-change="changedValue(existing_candidate)" name="existing_candidate" id="existing_candidate">
+                <select data-ng-options="candidate.first_name + ' ' + candidate.last_name for candidate in allCandidates" ng-model="existingCandidate.candidate" name="existingCandidate.candidate" id="existingCandidate.candidate">
                     <option value="">- Select Existing Candidate -</option>
                 </select>
+
                 <button class="remove" ng-show="$last" ng-click="removeExistingCandidate()">Remove Existing Candidate</button>
 
             </fieldset>
@@ -70,10 +71,10 @@
             <fieldset data-ng-repeat="precinct in precincts">
                 <input type="text" ng-model="precinct.zipcode_start" name="precinct.zipcode_start" placeholder="Precinct Start">
                 <label> to </label>
-                <input type="text" name="precinct.zipcode_end" id="precinct.zipcode_end" placeholder="Precinct End">
+                <input type="text" ng-model="precinct.zipcode_end" name="precinct.zipcode_end" id="precinct.zipcode_end" placeholder="Precinct End">
 
 
-                <select ng-options="manager.manager_id for manager in allManagers" ng-model="precinct.manager" name="precinct.manager" id="precinct.manager">
+                <select ng-options="manager.first_name + ' ' + manager.last_name for manager in allManagers" ng-model="precinct.manager" name="precinct.manager" id="precinct.manager">
                     <option value="">- Select Manager -</option>
                 </select>
 

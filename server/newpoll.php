@@ -1,6 +1,6 @@
 <?php
 require_once '../includes/db.php'; // The mysql database connection script
-if(isset($_GET['first_name']) && isset($_GET['last_name']) && isset($_GET['government_ID']) && isset($_GET['age']) && isset($_GET['gender']) && isset($_GET['contact_number']) && isset($_GET['address_line1']) && isset($_GET['address_line2']) && isset($_GET['city']) && isset($_GET['state']) && isset($_GET['country']) && isset($_GET['zip_code']))
+if(isset($_GET['title']) && isset($_GET['description']) && isset($_GET['start_date']) && isset($_GET['end_date']) && isset($_GET['level']) && isset($_GET['first_name']) && isset($_GET['last_name']) && isset($_GET['partyname']) && isset($_GET['designation']) && isset($_GET['biography']) && isset($_GET['website']) && isset($_GET['zipcode_start']) && isset($_GET['zipcode_end']) && isset($_GET['manager']))
 {
     $title = $_GET['title'];
     $description = $_GET['description'];
