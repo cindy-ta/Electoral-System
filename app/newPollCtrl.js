@@ -6,6 +6,12 @@ app.controller("newPollCtrl", function($scope, $rootScope, $http){
     $scope.existingCandidates = [];
     $scope.precincts = [];
 
+    $scope.newCandidate = [];
+    $scope.newPrecinct = [];
+    $scope.newLink = [];
+
+    $scope.temp;
+
     $scope.addNewCandidate = function() {
         var newItemNo = $scope.candidates.length+1;
         $scope.candidates.push({'id':'candidate'+newItemNo});
@@ -97,6 +103,107 @@ app.controller("newPollCtrl", function($scope, $rootScope, $http){
         var zipcodeend1 = $scope.precincts[0].zipcode_end;
         var manager = $scope.precincts[0].manager;*/
 
+        for (var i = 0; i < $scope.candidates.length; i++) {
+            $http.post('server/createCandidate.php?first_name=' + $scope.candidates[i].firstname + "&last_name=" + $scope.candidates[i].lastname + "&party_name=" + $scope.candidates[i].partyname + "&designation=" + $scope.candidates[i].designation + "&bio=" + $scope.candidates[i].biography + "&website_link=" + $scope.candidates[i].website).success(function (candidate_id) {
+                //$scope.message = "Email has been resent.";
+                if((candidate_id).length == 10)
+                {
+                    $scope.message = "Candidate creation failed..."
+
+                }else {
+                    $scope.temp = candidate_id;
+                }
+            });
+
+            $scope.newCandidate[i] = $scope.temp;
+        }
+
+        $scope.temp = 0;
+        for (var i = 0; i < $scope.precincts.length; i++) {
+            $http.post('server/createPrecinct.php?zipcode_start=' + $scope.precincts[i].zipcode_start + "&zipcode_end=" + $scope.precincts[i].zipcode_end + "&manager_id=" + $scope.precincts[i].manager.manager_id ).success(function (precinct_id) {
+                //$scope.message = "Email has been resent.";
+                if((precinct_id).length == 10)
+                {
+                    $scope.message = "Precinct creation failed..."
+
+                }else {
+                    $scope.temp = precinct_id;
+                }
+            });
+
+            $scope.newPrecinct[i] = $scope.temp;
+        }
+
+        var candidatesToSave = [];
+        for (var i = 0; i < $scope.newCandidate.length; i++) {
+            candidatesToSave[i] = $scope.newCandidate[i];
+        }
+        var nextIndex = $scope.newCandidate.length;
+        for (var i = 0; i < $scope.existingCandidates.length; i++)
+        {
+            candidatesToSave[i+nextIndex] = $scope.existingCandidates[i];
+        }
+
+        var newElection_id = 1;
+
+        $http.post('server/createElection.php?title=' + $scope.newpoll.title + "&description=" + $scope.newpoll.description + "&start_date=" + $scope.newpoll.datetime_start + "&end_date=" + $scope.newpoll.datetime_end + "&level=" + $scope.newpoll.election_level ).success(function (election_id) {
+            //$scope.message = "Email has been resent.";
+            if((election_id).length == 10)
+            {
+                $scope.message = "Election creation failed..."
+
+            }else {
+                //newElection_id = election_id;
+                $scope.temp = election_id;
+            }
+        });
+
+        newElection_id = $scope.temp;
+        console.log($scope.newPrecinct.length);
+
+       // console.log(localVar.length);
+
+
+
+
+        for (var i = 0; i < $scope.newPrecinct.length; i++) {
+            console.log("electionID = " + newElection_id);
+            $http.post('server/createLink.php?election_id=' + newElection_id + "&sublevel=" + $scope.newPrecinct[i] ).success(function (link_id) {
+                //$scope.message = "Email has been resent.";
+                if((link_id).length == 10)
+                {
+                    $scope.message = "Link creation failed..."
+
+                }else {
+                    $scope.temp = link_id;
+                }
+            });
+
+            $scope.newLink[i] = $scope.temp;
+        }
+
+        //var num = 0;
+        $scope.temp = 0;
+        for (var i = 0; i < $scope.newLink.length; i++) {
+            for (var j = 0; j < candidatesToSave.length; j++) {
+                $http.post('server/createLinkCandidateRelation.php?election_id=' + newElection_id + "&link_id=" + $scope.newLink[i] + "&candidate_id=" + candidatesToSave[j]).success(function (msg) {
+                    //$scope.message = "Email has been resent.";
+                    if ((msg).length == 10) {
+                        $scope.message = "Link Relation creation failed..."
+
+                    } else {
+                        //num++;
+
+                        $scope.temp++;
+                    }
+                });
+            }
+        }
+
+        if($scope.temp = (($scope.newLink.length)*(candidatesToSave.length)))
+        {
+            $scope.message = "Election created Successfully..."
+        }
     }
 
 });
