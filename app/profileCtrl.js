@@ -24,6 +24,8 @@ app.controller("profileCtrl", function(md5, $http, $scope, $rootScope, uuid2, $l
 
             if (profile.length == 4){
                 $scope.message = "Profile Successfully Updated";
+                $rootScope.isProfileUpdated = true;
+                $location.path("/home");
             }else{
                 $scope.message = "Not updated successfully";
             }

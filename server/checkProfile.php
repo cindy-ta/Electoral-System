@@ -7,10 +7,10 @@ if(isset($_GET['user_name']) && isset($_GET['user_type']))
 
     $success = 1;
 
-    if ($user_type == "Voter"){
+    if ($user_type == true){
         $query="SELECT * FROM Voters WHERE voter_id ='$username'";
         $result = $mysqli->query($query) or die($mysqli->error.__LINE__);
-    }else if($user_type == "Manager"){
+    }else if($user_type == false){
         $query="SELECT * FROM Managers WHERE manager_id ='$username'";
         $result = $mysqli->query($query) or die($mysqli->error.__LINE__);
     }
