@@ -29,9 +29,6 @@ app.controller("profileCtrl", function(md5, $http, $scope, $rootScope, uuid2, $l
             }else{
                 $scope.message = "Not updated successfully";
             }
-
         });
-
     }
-
 });
