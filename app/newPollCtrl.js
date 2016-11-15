@@ -38,45 +38,65 @@ app.controller("newPollCtrl", function($scope, $rootScope, $http){
 
     $http.post('server/allExistingManagers.php?').success(function (managers) {
         $scope.allManagers = managers;
-        //console.log(managers);
 
     });
 
     $http.post('server/allExistingCandidates.php?').success(function (candidates) {
         $scope.allCandidates = candidates;
-        //console.log(managers);
     });
 
-
-
-    /*$scope.changedValue = function(item) {
-        $scope.existingCandidates = item;
-    }*/
-
     $scope.createNewPoll = function() {
-        $http.post('server/newpoll.php?title=' + $scope.newpoll.title +
-            '&description=' + $scope.newpoll.description +
-            '&start_date=' + $scope.newpoll.datetime_start +
-            '&end_date=' + $scope.newpoll.datetime_end +
-            '&level=' + $scope.newpoll.election_level +
-            '&first_name=' + $scope.candidate.firstname +
-            '&last_name=' + $scope.candidate.lastname +
-            '&partyname=' + $scope.candidate.partyname +
-            '&designation=' + $scope.candidate.designation +
-            '&biography=' + $scope.candidate.biography +
-            '&website=' + $scope.candidate.website +
-            '&zipcode_start=' + $scope.precinct.zipcode_start +
-            '&zipcode_end=' + $rootScope.precinct.zipcode_end +
-            '&manager=' + $rootScope.precinct.manager).success(function (poll) {
 
-            if (poll.length == 4) {
-                $scope.message = "Profile Successfully Updated";
-            } else {
-                $scope.message = "Not updated successfully";
-            }
+/*
+        // Election info
+        var title = $scope.newpoll.title;
+        var description = $scope.newpoll.description;
+        var start_date = $scope.newpoll.datetime_start;
+        var end_date = $scope.newpoll.datetime_end;
+        var level = $scope.newpoll.election_level;
+*/
 
 
-        });
+/*      // Existing Candidate Info example
+        var existingcandidateID = [];
+        var existingfirstnames = [];
+        var existinglastnames = [];
+        var existingpartyname = [];
+        var existingdesignation = [];
+        var existingbio = [];
+        var existingwebsite = [];
+
+
+        for (var i = 0; i < $scope.existingCandidates.length; i++) {
+            existingcandidateID[i] = $scope.existingCandidates[i].candidate.candidate_id;
+            existingfirstnames[i] = $scope.existingCandidates[i].candidate.first_name;
+            existinglastnames[i] = $scope.existingCandidates[i].candidate.last_name;
+            existingpartyname[i] = $scope.existingCandidates[i].candidate.party_name;
+            existingdesignation[i] = $scope.existingCandidates[i].candidate.designation;
+            existingbio[i] = $scope.existingCandidates[i].candidate.bio;
+            existingwebsite[i] = $scope.existingCandidates[i].candidate.website_link;
+        }
+
+        // extract specific value example
+        $scope.message = existingfirstnames[1]; //change index values to extract diff values
+
+*/
+       // Candidate info - for first candidate
+
+/*      NEED same for loop idea
+
+        var candidateFirstName =  $scope.candidates[0].firstname;
+        var lastname1 = $scope.candidates[0].lastname;
+        var partyname1 = $scope.candidates[0].partyname;
+        var designation1 = $scope.candidates[0].designation;
+        var biography1 = $scope.candidates[0].biography;
+        var website1 = $scope.candidates[0].website;
+
+        // precinct info - for first precinct
+        var zipcodestart1 = $scope.precincts[0].zipcode_start;
+        var zipcodeend1 = $scope.precincts[0].zipcode_end;
+        var manager = $scope.precincts[0].manager;*/
+
     }
 
 });

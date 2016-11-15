@@ -9,7 +9,7 @@
 
     {{ precincts }}
 
-    <form ng-submit="createNewPoll">
+    <form ng-submit="createNewPoll()">
         <div class="form-group">
             <label for="newpoll.title">Election Title:</label>
             <input type="text" ng-model="newpoll.title" name="newpoll.title" id="newpoll.title" tabindex="1" class="form-control" placeholder="Election Title">
@@ -17,13 +17,13 @@
 
         <div class="form-group">
             <label for="newpoll.description">Election Description:</label>
-            <input type="text" name="newpoll.description" id="newpoll.description" tabindex="2" class="form-control" placeholder="Election Description">
+            <input type="text" ng-model="newpoll.description" name="newpoll.description" id="newpoll.description" tabindex="2" class="form-control" placeholder="Election Description">
         </div>
 
         <div class="form-group">
             <label>Election Time Constraints:</label>
-            <input type="text" name="newpoll.datetime_start" id="datetime_start" tabindex="6" class="form-control" placeholder="Start Date Time">
-            <input type="text" name="newpoll.datetime_end" id="datetime_end" tabindex="7" class="form-control" placeholder="End Date Time">
+            <input type="text" ng-model="newpoll.datetime_start" name="newpoll.datetime_start" id="newpoll.datetime_start" tabindex="6" class="form-control" placeholder="Start Date Time">
+            <input type="text" ng-model="newpoll.datetime_end" name="newpoll.datetime_end" id="newpoll.datetime_end" tabindex="7" class="form-control" placeholder="End Date Time">
         </div>
 
         <div class="form-group">
