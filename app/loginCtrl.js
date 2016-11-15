@@ -21,7 +21,7 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
                 if (user_authentication.verified == "Yes") {
 
                     if (user_authentication.password == md5.createHash($scope.login.password)) {
-                        profile_check1();
+                        home_check1();
                         startSessionAndGoToHomePage(user_authentication);
                     } else {
                         $scope.message = "Incorrect Email/Password combination";
@@ -33,7 +33,6 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
             } else {
                 $scope.message = "User not found";
             }
-
 
         });
     }
@@ -50,7 +49,7 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
             $scope.login.user_name = data;
             //$location.path("/home");
 
-            if($rootScope.isProfileUpdated == true){
+            if ($rootScope.isProfileUpdated == true || $rootScope.session.access == 'Admin') {
                 $location.path("/home");
             }else{
                 $location.path("/profile");
@@ -215,23 +214,33 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
     };
 
     $scope.admin_check = function(){
-
         $scope.isAdmin = false;
-
         if ($scope.login_check() == false) {
             if ($rootScope.session.access == "Admin") {
                 $scope.isAdmin = true;
             }
         }
-
         return !($scope.isAdmin);
     };
 
     $scope.profile_check = function(){
+        $scope.showProfile = false;
+        if ($scope.login_check() == false){
+            if ($scope.admin_check() == true){
+                $scope.showProfile = true;
+            }
+        }
+        return !($scope.showProfile);
+    };
+
+    $scope.home_check = function(){
+        if ($scope.admin_check() == false){
+            $rootScope.isProfileUpdated = true;
+        }
         return !($rootScope.isProfileUpdated);
     };
 
-    function profile_check1(){
+    function home_check1(){
         $rootScope.isProfileUpdated = false;
 
         $http.post('server/checkProfile.php?user_name='+$scope.login.user_name+'&user_type='+$scope.usertype()).success(function (updatedProfile) {
