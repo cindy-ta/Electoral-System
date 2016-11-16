@@ -109,6 +109,10 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
         $location.path("/precincts");
     }
 
+    $scope.redirectToSearch = function() {
+        $location.path("/search");
+    };
+
     $scope.createAccount = function(){
 
         if ($scope.good_email == true) {

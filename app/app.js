@@ -75,6 +75,11 @@ app.config(['$routeProvider', '$sceProvider',
                 templateUrl: 'partials/ballot.html',
                 controller: ''
             })
+            .when('/search', {
+                title: 'search',
+                templateUrl: 'partials/search.html',
+                controller: 'loginCtrl'
+            })
             .otherwise({
                 redirectTo: '/login'
             });

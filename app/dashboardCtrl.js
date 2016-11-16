@@ -18,4 +18,5 @@ app.controller("dashboardCtrl", function($scope, $rootScope, $http, $location){
         $location.path('/ballot');
     };
 
+
 });
