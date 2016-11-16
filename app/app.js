@@ -65,6 +65,11 @@ app.config(['$routeProvider', '$sceProvider',
                 templateUrl: 'partials/newpoll.html',
                 controller: 'newPollCtrl'
             })
+            .when('/precincts', {
+                title: 'precincts',
+                templateUrl: 'partials/precincts.html',
+                controller: 'newPollCtrl'
+            })
             .when('/ballot', {
                 title: 'ballot',
                 templateUrl: 'partials/ballot.html',

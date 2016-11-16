@@ -105,6 +105,10 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
         $location.path("/ballot");
     }
 
+    $scope.redirectToPrecincts = function(){
+        $location.path("/precincts");
+    }
+
     $scope.createAccount = function(){
 
         if ($scope.good_email == true) {

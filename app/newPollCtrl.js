@@ -44,12 +44,31 @@ app.controller("newPollCtrl", function($scope, $rootScope, $http){
 
     $http.post('server/allExistingManagers.php?').success(function (managers) {
         $scope.allManagers = managers;
-
     });
 
     $http.post('server/allExistingCandidates.php?').success(function (candidates) {
         $scope.allCandidates = candidates;
     });
+
+    $http.post('server/allExistingPrecincts.php?').success(function (precincts) {
+        $scope.allPrecincts = precincts;
+    });
+
+    $scope.findAssignedManager = function(precinct_id) {
+        //$scope.message = precinct_id.manager_id;
+
+        $http.post('server/findAssignedManager.php?manager_id=' + precinct_id.manager_id).success(function (manager) {
+            //$scope.message = manager.first_name + ' ' + manager.last_name;
+            $scope.assigned_manager = manager.first_name + ' ' + manager.last_name;
+        });
+    }
+
+    $scope.savePrecincts = function() {
+
+        // TO DO
+
+    }
+
 
     $scope.createNewPoll = function() {
 

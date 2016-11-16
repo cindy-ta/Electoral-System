@@ -1,0 +1,33 @@
+<div class="container" ng-controller="newPollCtrl">
+    <h1>Edit Precincts</h1><br/>
+
+    <!-- {{ message }}
+
+    {{ assigned_manager }} -->
+
+    <form>
+        <div class="form-group">
+            <h4>Select Precinct:</h4>
+            <select ng-options="precinct.zipcode_start + ' to ' + precinct.zipcode_end for precinct in allPrecincts" ng-model="precinct.precinct_id" ng-change="findAssignedManager(precinct.precinct_id)"  name="precinct.precinct_id" id="precinct.precinct_id">
+                <option value="">- Select Precinct -</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <br/>
+            <h4>Current Assigned Manager:</h4>
+            <div ng-bind-html="assigned_manager"></div>
+        </div>
+
+        <div class="form-group">
+            <br/>
+            <h4>Assign New Manager:</h4>
+            <select ng-options="manager.first_name + ' ' + manager.last_name for manager in allManagers" ng-model="precinct.manager" name="precinct.manager" id="precinct.manager">
+                <option value="">- Select New Manager -</option>
+            </select>
+        </div>
+
+        <br/>
+        <button type="submit" class="btn btn-default" ng-click="savePrecincts()">Save Changes</button>
+    </form>
+</div>
