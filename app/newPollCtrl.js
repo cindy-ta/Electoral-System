@@ -5,10 +5,15 @@ app.controller("newPollCtrl", function($scope, $rootScope, $http){
     $scope.candidates = [];
     $scope.existingCandidates = [];
     $scope.precincts = [];
+    $scope.linkCandidates = [];
+    $scope.allStates = [];
+    $scope.allCounties = [];
 
     $scope.newCandidate = [];
     $scope.newPrecinct = [];
     $scope.newLink = [];
+
+    $scope.stateSelected = false;
 
     $scope.temp;
 
@@ -42,6 +47,16 @@ app.controller("newPollCtrl", function($scope, $rootScope, $http){
         $scope.precincts.splice(lastItem);
     };
 
+    $scope.addNewLinkCandidate = function() {
+        var newItemNo = $scope.linkCandidates.length+1;
+        $scope.linkCandidates.push({'id':'linkCandidates'+newItemNo});
+    };
+
+    $scope.removeLinkCandidate = function() {
+        var lastItem = $scope.linkCandidates.length-1;
+        $scope.linkCandidates.splice(lastItem);
+    };
+
     $http.post('server/allExistingManagers.php?').success(function (managers) {
         $scope.allManagers = managers;
     });
@@ -50,9 +65,48 @@ app.controller("newPollCtrl", function($scope, $rootScope, $http){
         $scope.allCandidates = candidates;
     });
 
+    $http.post('server/allExistingStates.php?').success(function (states) {
+        $scope.allStates = states;
+    });
+
+    $http.post('server/allExistingCounties.php?').success(function (counties) {
+        $scope.allCounties = counties;
+    });
+
     $http.post('server/allExistingPrecincts.php?').success(function (precincts) {
         $scope.allPrecincts = precincts;
     });
+
+    $scope.selectSublevel = function(level) {
+        $scope.message = level;
+        $scope.stateSelected = false;
+        $scope.countySelected = false;
+        $scope.precinctSelected = false;
+
+        if (level == "Country") {
+            $scope.stateSelected = true;
+        } else if (level == "State") {
+            $scope.countySelected = true;
+        } else if (level == "County") {
+            $scope.precinctSelected = true;
+        } else {
+            $scope.message = "Nothing selected??"
+        }
+
+    }
+
+    $scope.stateSelected = function() {
+        return $scope.stateSelected;
+    }
+
+    $scope.countySelected = function() {
+        return $scope.countySelected;
+    }
+
+    $scope.precinctSelected = function() {
+        return $scope.precinctSelected;
+    }
+
 
     $scope.findAssignedManager = function(precinct_id) {
         //$scope.message = precinct_id.manager_id;
