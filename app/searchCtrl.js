@@ -28,5 +28,12 @@ app.controller("searchCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
         console.log("last_name= "+$scope.search.last_name);
         console.log("government_ID= "+$scope.search.government_ID);
         console.log("zip_code= "+$scope.search.zip_code);
+
+
+        /*
+        var doc = new jsPDF();
+        doc.text(HELLO WORLD, 10, 10);
+        doc.save('a4.pdf');*/
+
     }
 });
