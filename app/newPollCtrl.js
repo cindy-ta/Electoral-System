@@ -126,6 +126,8 @@ app.controller("newPollCtrl", function($scope, $rootScope, $http){
 
     $scope.createNewPoll = function() {
 
+        $scope.message = $scope.linkCandidates;
+        $scope.existingCandidates = $scope.existingCandidates;
 /*
         // Election info
         var title = $scope.newpoll.title;

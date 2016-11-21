@@ -73,7 +73,7 @@ app.config(['$routeProvider', '$sceProvider',
             .when('/ballot', {
                 title: 'ballot',
                 templateUrl: 'partials/ballot.html',
-                controller: ''
+                controller: 'ballotCtrl'
             })
             .when('/search', {
                 title: 'search',

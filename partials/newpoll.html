@@ -40,12 +40,12 @@
                 <label>Select Sublevel</label><br/>
 
                 <!-- States -->
-                <select ng-show="stateSelected()" data-ng-options="state.state_name for state in allStates" ng-model="state.state_name" name="state.state_name" id="state.state_name">
+                <select ng-show="stateSelected()" data-ng-options="state.state_name for state in allStates" ng-model="linkCandidate.state" name="linkCandidate.state" id="state.state_name">
                     <option value="">- Select State -</option>
                 </select>
 
                 <!-- Counties -->
-                <select ng-show="countySelected()" data-ng-options="county.county_name for county in allCounties" ng-model="county.county_name" name="county.county_name" id="county.county_name">
+                <select ng-show="countySelected()" data-ng-options="county.county_name for county in allCounties" ng-model="linkCandidate.county" name="linkCandidate.county" id="county.county_name">
                     <option value="">- Select County -</option>
                 </select>
 
