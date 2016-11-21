@@ -1,8 +1,8 @@
-<div class="container" ng-controller="loginCtrl">
+<div class="container" ng-controller="searchCtrl">
 
     <h1>Search Users</h1>
 
-    {{ msg }}
+    {{ message }}
 
     <form ng-submit="searchClicked()">
         <div class="form-group">
@@ -13,8 +13,8 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="username">Voter/Manager ID:</label>
-            <input type="text" ng-model="search.username" name="username" id="username" tabindex="2" class="form-control" placeholder="Search by Manager/Voter ID" value="">
+            <label for="user_name">Voter/Manager ID:</label>
+            <input type="text" ng-model="search.user_name" name="user_name" id="user_name" tabindex="2" class="form-control" placeholder="Search by Manager/Voter ID" value="">
         </div>
         <div class="form-group">
             <label for="first_name">First Name:</label>
@@ -32,7 +32,6 @@
             <label for="zip_code">Zip Code:</label>
             <input type="text" ng-model="search.zip_code" name="zip_code" id="zip_code" tabindex="6" class="form-control" placeholder="Search by Zip Code" value="">
         </div>
-
 
         <button type="submit" class="btn btn-default">Search Database</button>
     </form>

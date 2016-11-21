@@ -78,7 +78,7 @@ app.config(['$routeProvider', '$sceProvider',
             .when('/search', {
                 title: 'search',
                 templateUrl: 'partials/search.html',
-                controller: 'loginCtrl'
+                controller: 'searchCtrl'
             })
             .otherwise({
                 redirectTo: '/login'
