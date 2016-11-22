@@ -23,6 +23,16 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
 
     $http.post('server/allExistingElections.php?').success(function (allElections) {
         $scope.allElections = allElections;
+        //$scope.message = $scope.allElections[0];
+
+        $scope.dashboard_elections = [];
+        for (var i = 0; i < $scope.allElections.length; i++) {
+            $scope.dashboard_elections[i] =
+                "<h2>" + $scope.allElections[i].title + "</h2>"
+                + "<br><h3>" + $scope.allElections[i].start_date + " to "+ $scope.allElections[i].end_date + "</h3>"
+                + "<br><h4>Election Description: " + $scope.allElections[i].description+ "</h4>"
+                + "<br><h5>Election Level: " + $scope.allElections[i].level + "</h5>";
+        }
     })
 
     $scope.findAllElectionInfo = function(election) {
@@ -39,7 +49,6 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
             //$scope.message = candidates[0].first_name;
 
             $scope.candidate = [];
-            $scope.dashboard_candidate = [];
             for (var i = 0; i < candidates.length; i++) {
                 $scope.candidate[i] =
                     "<h3>" + candidates[i].first_name + " " + candidates[i].last_name + "</h3>"
@@ -47,7 +56,6 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
                     + "<br>" + candidates[i].designation + "</h4>"
                     + "<br><h5>" + candidates[i].bio
                     + "<br>" + candidates[i].website + "</h5>";
-                $scope.dashboard_candidate[i] = "<h3>" + candidates[i].first_name + " " + candidates[i].last_name + "</h3>";
             }
 
             $scope.people = [];

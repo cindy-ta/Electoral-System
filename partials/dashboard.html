@@ -1,5 +1,6 @@
 <div class="container" ng-controller="ballotCtrl">
 
+    {{ message }}
     <!-- Page Heading -->
     <div class="row">
         <div class="col-lg-12">
@@ -11,28 +12,12 @@
 
     <div class="row">
 
-        <h3><div ng-bind-html="election_title"></div></h3>
 
-        <!-- CANDIDATE INFO-->
+        <div ng-repeat="election in dashboard_elections track by $index">
+            <div class="well">
+                <hp ng-bind-html="election"></hp>
+            </div>
+        </div>
 
-        <h5><div ng-bind-html="election_endDate"></div>
-        <div ng-bind-html="election_startDate"></div></h5>
-
-        <p><div ng-bind-html="election_description"></div></p>
     </div>
-
-    <div class="row">
-        <h3><label ng-model="dashboard.election_title" name="election_title">Presidential Election</label></h3>
-
-        <h4><label ng-model="dashboard.candidate" name="candidate">Hillary Clinton</label> vs. <label ng-model="dashboard.candidate" name="candidate">Donald Trump</label></h4>
-
-        <h5>Start Time: <label ng-model="dashboard.start_time" name="start_time">Mon Oct 31 2016 00:00:00 CST</label>
-            <br/>End Time: <label ng-model="dashboard.end_time" name="end_time">Fri Nov 25 2016 00:00:00 CST</label></h5>
-
-        <p><label ng-model="dashboard.election_description" name="election_description">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Laudantium veniam exercitationem expedita laborum at voluptate.
-            Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</label></p>
-        <a class="btn btn-primary" href="../bootstrap/ballot.html">Cast Vote<span class="glyphicon glyphicon-chevron-right"></span></a>
-    </div>
-
 </div>

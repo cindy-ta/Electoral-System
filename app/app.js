@@ -43,7 +43,7 @@ app.config(['$routeProvider', '$sceProvider',
             .when('/home', {
                 title: 'Home',
                 templateUrl: 'partials/dashboard.html',
-                controller: 'dashboardCtrl'
+                controller: 'ballotCtrl'
             })
             .when('/verification', {
                 title: 'Verification',
