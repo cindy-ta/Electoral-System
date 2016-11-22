@@ -39,6 +39,7 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
             //$scope.message = candidates[0].first_name;
 
             $scope.candidate = [];
+            $scope.dashboard_candidate = [];
             for (var i = 0; i < candidates.length; i++) {
                 $scope.candidate[i] =
                     "<h3>" + candidates[i].first_name + " " + candidates[i].last_name + "</h3>"
@@ -46,6 +47,7 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
                     + "<br>" + candidates[i].designation + "</h4>"
                     + "<br><h5>" + candidates[i].bio
                     + "<br>" + candidates[i].website + "</h5>";
+                $scope.dashboard_candidate[i] = "<h3>" + candidates[i].first_name + " " + candidates[i].last_name + "</h3>";
             }
 
             $scope.people = [];
