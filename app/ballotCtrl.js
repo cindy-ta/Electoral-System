@@ -9,11 +9,13 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
 
         $scope.isManager = false;
 
-        if($scope.login.user_type == "Manager")
+        console.log("$rootScope.session.access= "+$rootScope.session.access);
+        if($rootScope.session.access == "Manager")
         {
             $scope.isManager = true;
             console.log("true")
         }
+        //console.log("$scope.isManager= "+$scope.isManager);
         console.log("false")
 
         return !($scope.isManager);

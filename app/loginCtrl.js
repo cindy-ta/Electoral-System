@@ -21,7 +21,7 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
                 if (user_authentication.verified == "Yes") {
 
                     if (user_authentication.password == md5.createHash($scope.login.password)) {
-                        home_check1();
+                        //home_check1();
                         startSessionAndGoToHomePage(user_authentication);
                     } else {
                         $scope.message = "Incorrect Email/Password combination";
@@ -47,13 +47,9 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
             };
             $cookieStore.put("session", $rootScope.session );
             $scope.login.user_name = data;
-            //$location.path("/home");
 
-            if ($rootScope.isProfileUpdated == true || $rootScope.session.access == 'Admin') {
-                $location.path("/home");
-            }else{
-                $location.path("/profile");
-            }
+            home_check1();
+            console.log("isProfileUpdated= "+$rootScope.isProfileUpdated);
 
         })
     }
@@ -250,15 +246,19 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
 
     function home_check1(){
         $rootScope.isProfileUpdated = false;
+        console.log("$scope.login.user_name= "+$rootScope.session.user_name);
 
-        $http.post('server/checkProfile.php?user_name='+$scope.login.user_name+'&user_type='+$scope.usertype()).success(function (updatedProfile) {
+        $http.post('server/checkProfile.php?user_name='+$rootScope.session.user_name+'&user_type='+$rootScope.session.access).success(function (updatedProfile) {
             if(updatedProfile.length == 4){
                 $rootScope.isProfileUpdated = true;
                 console.log("Profile is updated")
+                $scope.redirectToHome()
             }else{
                 console.log("Profile needs to be updated");
+                $scope.redirectToProfile()
             }
         });
+        console.log("isUpdated at end of home_check1() = "+$rootScope.isProfileUpdated);
     };
 
     $scope.validateLogin = function() {
