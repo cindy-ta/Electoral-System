@@ -53,7 +53,8 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
                 $scope.people[i] = candidates[i];
             }
 
-            console.log($scope.people);
+            //console.log($scope.people);
+            //console.log($scope.people);
 
         })
 
@@ -63,25 +64,34 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
 
         if ($scope.isControlPoll == true) {
             $scope.isControlPoll = false;
-            console.log("False");
+            //console.log("False");
         }
 
         else {
             $scope.isControlPoll = true;
-            console.log("True");
+            //console.log("True");
         }
 
     }
 
     $scope.checkIfClicked = function() {
         if ($scope.isControlPoll == true) {
-            console.log("clicked = true");
+            //console.log("clicked = true");
             return true;
         }
         else {
-            console.log("clicked = false");
+            //console.log("clicked = false");
             return false;
         }
+
+
+    }
+
+    $scope.castVote = function() {
+
+        $scope.message = $scope.selected_candidate; //gives me candidate_id
+
+
 
 
     }
