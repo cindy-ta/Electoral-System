@@ -39,17 +39,27 @@
                         <p ng-bind-html="name"></p>
                     </div>
 
-
-                    <span class="pull-right"><input type="radio" name="candidate" value="1"> Hillary Clinton<br></span>
-
                 </div>
 
                 <hr>
 
                 <hr>
-                <div class="text-right">
-                    <a href="dashboard.html" class="btn btn-success">Cast Your Vote</a>
+
+            </div>
+
+            <div class="thumbnail">
+
+                <center><h2>Cast Your Vote!</h2></center>
+
+                <div ng-repeat="person in people">
+                    <h4>
+                        <input type="radio" ng-model="$parent.candidate_id" name="candidate_id" value="{{person.first_name}}" required />
+                        {{person.first_name + " " + person.last_name}}
+                    </h4>
                 </div>
+
+
+                <a href="dashboard.html" class="btn btn-success">Cast Your Vote</a>
             </div>
 
         </div>

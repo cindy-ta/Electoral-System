@@ -48,57 +48,16 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
                     + "<br>" + candidates[i].website + "</h5>";
             }
 
-            console.log($scope.candidate)
-/*
-            $scope.candidate.candidate_name = candidates[0].first_name + ' ' + candidates[0].last_name;
-            $scope.candidate.candidate_party = candidates[0].party_name;
-            $scope.candidate.candidate_designation = candidates[0].designation;
-            $scope.candidate.candidate_bio = candidates[0].bio;
-            $scope.candidate.candidate_website = candidates[0].website;
+            $scope.people = [];
+            for (var i = 0; i < candidates.length; i++) {
+                $scope.people[i] = candidates[i];
+            }
 
-           /* $scope.candidate_name = [];
-            $scope.candidate_party = [];
-            $scope.candidate_designation = [];
-            $scope.candidate_bio = [];
-            $scope.candidate_website = [];
-
-            for ( var i = 0; i < candidates.length; i++) {
-                $scope.candidate_name[i] = candidates[i].first_name + ' ' + candidates[i].last_name;
-                $scope.candidate_party[i] = candidates[i].party_name;
-                $scope.candidate_designation[i] = candidates[i].designation;
-                $scope.candidate_bio[i] = candidates[i].bio;
-                $scope.candidate_website[i] = candidates[i].website;
-            }*/
+            console.log($scope.people);
 
         })
 
     }
-
-
-
-
-
-    /*$scope.populateBallot = function(election) {
-        //$scope.message = precinct_id.manager_id;
-
-        $http.post('server/getElectionInfo.php?election_id='+$scope.election.election_id).success(function (election) {
-            scope.message = $scope.election.election_id;
-        });
-    }*/
-
-/*    $http.post('server/getElectionInfo.php?').success(function (electionID) {
-
-        console.log("Election Info: ??" + electionID);
-        //$scope.message = electionID.length;
-
-        $scope.election_title = electionID[0].title;
-        $scope.election_startDate = electionID[0].start_date;
-        $scope.election_endDate = electionID[0].end_date;
-        $scope.election_description = electionID[0].description;
-
-        $scope.message = electionID[1].candidate_id;
-    }*/
-
 
 
 });
