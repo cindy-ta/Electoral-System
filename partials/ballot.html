@@ -1,24 +1,31 @@
 <div class="container" ng-controller="ballotCtrl">
 
-    {{ allElections }}
+    {{ message }}
+
+    <!-- {{ allElections }} -->
 
     <div class="row">
 
-        <div class="col-md-3">
+        <!--<div class="col-md-3">
             <p class="lead">Available Elections</p>
             <div class="list-group" ng-repeat="election in allElections">
-                <a href="" class="list-group-item" >{{ election.title }}</a>
+                <a href="" ng-model="election.election_id" ng-change="populateBallot(election.election_id)" class="list-group-item" name="election.election_id" id="election.election_id">{{ election.title }}</a>
             </div>
-        </div>
+        </div>-->
 
 
         <div class="col-md-9">
+
+            <select ng-options="election.title for election in allElections" ng-model="election.election_id" ng-change="findAllElectionInfo(election.election_id)"  name="election.election_id" id="election.election_id">
+                <option value="">- Select Election -</option>
+            </select>
 
             <div class="thumbnail">
                 <div class="caption-full">
                     <h2><div ng-bind-html="election_title"></div></h2>
                     <h3><div ng-bind-html="election_startDate"></div> to <div ng-bind-html="election_endDate"></div></h3>
                     <h4><div ng-bind-html="election_description"></div></h4>
+                    <h4><div ng-bind-html="election_level"></div></h4>
                 </div>
             </div>
 
@@ -27,18 +34,17 @@
             <div class="well">
 
                 <div class="row">
-                    <h4>Hillary Clinton</h4>
-                    <h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</h5>
+
+                    <div ng-repeat="name in candidate track by $index">
+                        <p ng-bind-html="name"></p>
+                    </div>
+
+
                     <span class="pull-right"><input type="radio" name="candidate" value="1"> Hillary Clinton<br></span>
+
                 </div>
 
                 <hr>
-
-                <div class="row">
-                    <h4>Donald Trump</h4>
-                    <h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</h5>
-                    <span class="pull-right"><input type="radio" name="candidate" value="2"> Donald Trump<br></span>
-                </div>
 
                 <hr>
                 <div class="text-right">
