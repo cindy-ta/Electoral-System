@@ -3,20 +3,20 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
     $scope.isManager = false;
     $scope.message = "";
     $scope.allCandidates = [];
-
+    $scope.isControlPoll = false;
 
     $scope.manager_check = function(){
 
         $scope.isManager = false;
 
-        console.log("$rootScope.session.access= "+$rootScope.session.access);
+        //console.log("$rootScope.session.access= "+$rootScope.session.access);
         if($rootScope.session.access == "Manager")
         {
             $scope.isManager = true;
-            console.log("true")
+            //console.log("true")
         }
         //console.log("$scope.isManager= "+$scope.isManager);
-        console.log("false")
+        //console.log("false")
 
         return !($scope.isManager);
     };
@@ -58,6 +58,34 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
         })
 
     }
+
+    $scope.controlPoll = function() {
+
+        if ($scope.isControlPoll == true) {
+            $scope.isControlPoll = false;
+            console.log("False");
+        }
+
+        else {
+            $scope.isControlPoll = true;
+            console.log("True");
+        }
+
+    }
+
+    $scope.checkIfClicked = function() {
+        if ($scope.isControlPoll == true) {
+            console.log("clicked = true");
+            return true;
+        }
+        else {
+            console.log("clicked = false");
+            return false;
+        }
+
+
+    }
+
 
 
 });
