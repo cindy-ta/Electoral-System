@@ -21,7 +21,7 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
         return !($scope.isManager);
     };
 
-    $http.post('server/allExistingElections.php?').success(function (allElections) {
+    $http.post('server/filteredElections.php?user_name=' + $scope.session.user_name).success(function (allElections) {
         $scope.allElections = allElections;
         //$scope.message = $scope.allElections[0];
 

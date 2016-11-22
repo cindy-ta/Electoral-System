@@ -143,12 +143,12 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
                     $http.post('server/createUser.php?email=' + $scope.login.email + '&password=' + password + '&user_type=' + $scope.login.user_type + '&manager_key=' + manager_key).success(function (msg) {
                         if(msg.length == 6)
                         {
-                            $scope.message = "This person is already registered."
+                            $scope.message = "Manager data not found."
                         }else if(msg.length == 4) {
                             $location.path("/verification");
                         }else
                         {
-                            $scope.message = "Manager details not found in database"
+                            $scope.message = "Error in saving details"
                         }
                     });
                 }
