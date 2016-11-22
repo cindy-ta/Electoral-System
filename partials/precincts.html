@@ -1,9 +1,9 @@
 <div class="container" ng-controller="newPollCtrl">
     <h1>Edit Precincts</h1><br/>
 
-    <!-- {{ message }}
+     {{ message }}
 
-    {{ assigned_manager }} -->
+    <!--{{ assigned_manager }} -->
 
     <form>
         <div class="form-group">
@@ -28,6 +28,6 @@
         </div>
 
         <br/>
-        <button type="submit" class="btn btn-default" ng-click="savePrecincts()">Save Changes</button>
+        <button type="submit" class="btn btn-default" ng-click="savePrecincts(precinct.precinct_id, precinct.manager)">Save Changes</button>
     </form>
 </div>

@@ -117,9 +117,17 @@ app.controller("newPollCtrl", function($scope, $rootScope, $http){
         });
     }
 
-    $scope.savePrecincts = function() {
+    $scope.savePrecincts = function(precinct_id, manager_id) {
 
-        // TO DO
+        $http.post('server/editPrecincts.php?precinct_id=' + precinct_id.precinct_id+
+            '&manager_id='+manager_id.manager_id).success(function (precinct) {
+
+            if(precinct.length > 0){
+                $scope.message = "Precinct Successfully Updated";
+            }else{
+                $scope.message = "Precinct NOT Successfully Updated";
+            }
+        });
 
     }
 
