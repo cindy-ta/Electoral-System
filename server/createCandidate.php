@@ -1,6 +1,6 @@
 <?php
 require_once '../includes/db.php'; // The mysql database connection script
-if(isset($_GET['first_name']) && isset($_GET['last_name']) && isset($_GET['party_name']) && isset($_GET['designation']) && isset($_GET['bio']) && isset($_GET['website_link']))
+if(isset($_GET['first_name']) && isset($_GET['last_name']) && isset($_GET['party_name']) && isset($_GET['designation']) && isset($_GET['bio']) && isset($_GET['website_link']) && isset($_GET['linkIndex']) && isset($_GET['index']))
 {
     $first_name = $_GET['first_name'];
     $last_name = $_GET['last_name'];
@@ -8,6 +8,9 @@ if(isset($_GET['first_name']) && isset($_GET['last_name']) && isset($_GET['party
     $designation = $_GET['designation'];
     $bio = $_GET['bio'];
     $website_link = $_GET['website_link'];
+    $linkIndex = $_GET['linkIndex'];
+    $index = $_GET['index'];
+
 
     $candidate_id = 3001;
     $query="Select candidate_id from Candidates";
@@ -27,7 +30,11 @@ if(isset($_GET['first_name']) && isset($_GET['last_name']) && isset($_GET['party
     $result = $mysqli->affected_rows;
     if($result == 1)
     {
-        echo $json_response = json_encode($candidate_id);
+        $arr = array();
+        $arr[0] = $candidate_id;
+        $arr[1] = (int)$listIndex;
+        $arr[2] = (int)$index
+        echo $json_response = json_encode($arr);
     }else
     {
         $num = "9999999999";

@@ -145,7 +145,7 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
                         {
                             $scope.message = "This person is already registered."
                         }else if(msg.length == 4) {
-                            $location.path("/login");
+                            $location.path("/verification");
                         }else
                         {
                             $scope.message = "Manager details not found in database"

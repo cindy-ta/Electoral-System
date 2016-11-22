@@ -40,37 +40,37 @@
                 <label>Select Sublevel</label><br/>
 
                 <!-- States -->
-                <select ng-show="stateSelected()" data-ng-options="state.state_name for state in allStates" ng-model="linkCandidate.state" name="linkCandidate.state" id="state.state_name">
+                <select ng-show="stateSelected()" data-ng-options="state.state_name for state in allStates" ng-model="linkCandidate.state" name="state.state_name" id="state.state_name">
                     <option value="">- Select State -</option>
                 </select>
 
                 <!-- Counties -->
-                <select ng-show="countySelected()" data-ng-options="county.county_name for county in allCounties" ng-model="linkCandidate.county" name="linkCandidate.county" id="county.county_name">
+                <select ng-show="countySelected()" data-ng-options="county.county_name for county in allCounties" ng-model="linkCandidate.county" name="county.county_name" id="county.county_name">
                     <option value="">- Select County -</option>
                 </select>
 
                 <!-- Precincts -->
-                <select ng-show="precinctSelected()" data-ng-options="precinct.zipcode_start + ' to ' + precinct.zipcode_end for precinct in allPrecincts" ng-model="precinct.precinct_id" ng-change="findAssignedManager(precinct.precinct_id)"  name="precinct.precinct_id" id="precinct.precinct_id">
+                <select ng-show="precinctSelected()" data-ng-options="precinct.zipcode_start + ' to ' + precinct.zipcode_end for precinct in allPrecincts" ng-model="linkCandidate.precinct" ng-change="findAssignedManager(precinct.precinct_id)"  name="precinct.precinct_id" id="precinct.precinct_id">
                     <option value="">- Select Precinct -</option>
                 </select>
 
                 <div class="form-group">
                     <label>Candidates:</label><br>
 
-                    <fieldset data-ng-repeat="existingCandidate in existingCandidates">
+                    <fieldset data-ng-repeat="existingCandidate in linkCandidate.existingCandidates">
                         <select data-ng-options="candidate.first_name + ' ' + candidate.last_name for candidate in allCandidates" ng-model="existingCandidate.candidate" name="existingCandidate.candidate" id="existingCandidate.candidate">
                             <option value="">- Select Existing Candidate -</option>
                         </select>
 
-                        <button class="remove" ng-show="$last" ng-click="removeExistingCandidate()">Remove Existing Candidate</button>
+                        <button class="remove" ng-show="$last" ng-click="removeExistingCandidate(linkCandidate)">Remove Existing Candidate</button>
 
                     </fieldset>
-                    <button class="addfields" ng-click="addNewExistingCandidate()">Add Existing Candidate</button>
+                    <button class="addfields" ng-click="addNewExistingCandidate(linkCandidate)">Add Existing Candidate</button>
 
 
                     <br/><br/>
 
-                    <fieldset data-ng-repeat="candidate in candidates">
+                    <fieldset data-ng-repeat="candidate in linkCandidate.candidates">
                         <input type="text" ng-model="candidate.firstname" name="firstname" placeholder="Candidate's First Name">
                         <input type="text" ng-model="candidate.lastname" name="lastname" placeholder="Candidate's Last Name">
                         <select ng-model="candidate.partyname" name="partyname" tabindex="1" class="form-control" id="partyname">
@@ -82,10 +82,10 @@
                         <input type="text" ng-model="candidate.biography" name="biography" placeholder="Candidate's Biography">
                         <input type="text" ng-model="candidate.website" name="website" placeholder="Candidate's Website">
 
-                        <button class="remove" ng-show="$last" ng-click="removeCandidate()">Remove Candidate</button>
+                        <button class="remove" ng-show="$last" ng-click="removeCandidate(linkCandidate)">Remove Candidate</button>
 
                     </fieldset>
-                    <button class="addfields" ng-click="addNewCandidate()">Create New Candidate</button>
+                    <button class="addfields" ng-click="addNewCandidate(linkCandidate)">Create New Candidate</button>
                 </div>
 
             <button class="remove" ng-show="$last" ng-click="removeLinkCandidate()">Remove Link</button>

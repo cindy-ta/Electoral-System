@@ -1,9 +1,10 @@
 <?php
 require_once '../includes/db.php'; // The mysql database connection script
-if(isset($_GET['election_id']) && isset($_GET['sublevel']) )
+if(isset($_GET['election_id']) && isset($_GET['sublevel']) && isset($_GET['index']) )
 {
     $election_id = $_GET['election_id'];
     $sublevel = $_GET['sublevel'];
+    $index = $_GET['index'];
 
     $link_id = 1;
     $query="Select max(link_id) as id from Links where election_id = '$election_id'";
@@ -20,7 +21,10 @@ if(isset($_GET['election_id']) && isset($_GET['sublevel']) )
     $result = $mysqli->affected_rows;
     if($result == 1)
     {
-        echo $json_response = json_encode($link_id);
+        $arr = array();
+        $arr[0] = $link_id;
+        $arr[1] = (int)$index;
+        echo $json_response = json_encode($arr);
     }else
     {
         $num = "9999999999";

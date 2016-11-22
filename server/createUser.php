@@ -12,7 +12,7 @@ if(isset($_GET['email']) && isset($_GET['password']) && isset($_GET['user_type']
     $user_name = 1001;
     if($user_type == "Manager")
     {
-        $query="Select username from mydb.Users where email_address = '$email' AND manager_key = '$manager_key' AND user_type = '$user_type' AND verified = NULL";
+        $query="Select username from mydb.Users where email_address = '$email' AND manager_key = '$manager_key' AND user_type = '$user_type'";
         $result = $mysqli->query($query) or die($mysqli->error.__LINE__);
         if($result->num_rows > 0) {
             $query="Update mydb.Users SET password='$password', verification_code='$code', verified='$verified' where email_address = '$email' AND manager_key = '$manager_key' AND user_type = '$user_type' ";
