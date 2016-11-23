@@ -246,7 +246,6 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
 
     function home_check1(){
         $rootScope.isProfileUpdated = false;
-        console.log("$scope.login.user_name= "+$rootScope.session.user_name);
 
         $http.post('server/checkProfile.php?user_name='+$rootScope.session.user_name+'&user_type='+$rootScope.session.access).success(function (updatedProfile) {
             if($scope.admin_check() == false) {
@@ -259,9 +258,7 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
                 console.log("Profile needs to be updated");
                 $scope.redirectToProfile()
             }
-
         });
-        console.log("isUpdated at end of home_check1() = "+$rootScope.isProfileUpdated);
     };
 
     $scope.validateLogin = function() {
