@@ -40,7 +40,7 @@
         <div ng-controller="loginCtrl">
             <ul class="nav navbar-nav">
                 <li><a ng-hide="home_check()" ng-click="redirectToHome()">Home</a></li>
-                <li><a ng-hide="home_check()" ng-click="redirectToBallotPage()">Ballot Page</a></li>
+                <li><a ng-hide="ballot_check()" ng-click="redirectToBallotPage()">Ballot Page</a></li>
                 <li><a ng-hide="profile_check()" ng-click="redirectToProfile()">Profile Page</a></li>
                 <li><a ng-hide="admin_check()" ng-click="redirectToNewPoll()">New Poll Page</a></li>
                 <li><a ng-hide="admin_check()" ng-click="redirectToPrecincts()">Edit Precincts</a></li>

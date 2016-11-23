@@ -237,6 +237,16 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
         return !($scope.showProfile);
     };
 
+    $scope.ballot_check = function(){
+        $scope.showBallot = false;
+        if ($scope.home_check() == false){
+            if ($scope.admin_check() == true){
+                $scope.showBallot = true;
+            }
+        }
+        return !($scope.showBallot);
+    };
+
     $scope.home_check = function(){
         if ($scope.admin_check() == false){
             $rootScope.isProfileUpdated = true;
