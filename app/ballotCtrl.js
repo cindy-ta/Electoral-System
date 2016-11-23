@@ -23,31 +23,27 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
 
     $http.post('server/filteredElections.php?user_name=' + $scope.session.user_name).success(function (allElections) {
         $scope.allElections = allElections;
-        //$scope.message = $scope.allElections[0];
+        //$scope.message = allElections;
 
-        $scope.dashboard_elections = [];
-        for (var i = 0; i < $scope.allElections.length; i++) {
-            $scope.dashboard_elections[i] =
-                "<h2>" + $scope.allElections[i].title + "</h2>"
-                + "<br><h3>" + $scope.allElections[i].start_date + " to "+ $scope.allElections[i].end_date + "</h3>"
-                + "<br><h4>Election Description: " + $scope.allElections[i].description+ "</h4>"
-                + "<br><h5>Election Level: " + $scope.allElections[i].level + "</h5>";
-        }
     })
 
     $scope.findAllElectionInfo = function(election) {
+        //$scope.message = election[0].title;
 
         //$scope.message = election;
         //$scope.message = election.election_id;
-        $scope.election_title = election.title;
-        $scope.election_description = election.description;
-        $scope.election_startDate = election.start_date;
-        $scope.election_endDate = election.end_date;
-        $scope.election_level = election.level;
+        $scope.election_title = election[0].title;
+        $scope.election_description = election[0].description;
+        $scope.election_startDate = election[0].start_date;
+        $scope.election_endDate = election[0].end_date;
+        $scope.election_level = election[0].level;
+        $scope.election_candidates = [];
 
-        $http.post('server/getCandidateInfo.php?election_id=' + election.election_id).success(function (candidates) {
+
+        $http.post('server/getCandidateInfo.php?election_id=' + election[0].election_id).success(function (candidates) {
             //$scope.message = candidates[0].first_name;
 
+            $scope.election_candidates = candidates;
             $scope.candidate = [];
             for (var i = 0; i < candidates.length; i++) {
                 $scope.candidate[i] =
@@ -65,6 +61,14 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
 
             //console.log($scope.people);
             //console.log($scope.people);
+
+        })
+
+        // NEED TO ADD A CHECK HERE TO MAKE SURE THAT THE ELECTION HAS ENDED
+
+        $http.post('server/getResults.php?election_id=' + election.election_id).success(function (results) {
+
+            //$scope.message = $scope.election_candidates[0].candidate_id;
 
         })
 
@@ -99,7 +103,7 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
 
     $scope.castVote = function() {
 
-        $scope.message = $scope.selected_candidate; //gives me candidate_id
+        //$scope.message = $scope.selected_candidate; //gives me candidate_id
 
 
 
