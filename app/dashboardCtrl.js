@@ -2,6 +2,8 @@ app.controller("dashboardCtrl", function(md5, $http, $scope, $rootScope, uuid2, 
     $scope.message = "";
     $scope.allElections = [];
 
+    home_check1();
+
     $http.post('server/allExistingElections.php?').success(function (allElections) {
         $scope.allElections = allElections;
         //$scope.message = $scope.allElections[0];
@@ -17,6 +19,14 @@ app.controller("dashboardCtrl", function(md5, $http, $scope, $rootScope, uuid2, 
     })
 
 
-
+    function home_check1(){
+        $http.post('server/checkProfile.php?user_name='+$rootScope.session.user_name+'&user_type='+$rootScope.session.access).success(function (updatedProfile) {
+            if($rootScope.session.access == "Voter" || $rootScope.session.access == "Manager"){
+                if(updatedProfile.length == 4){
+                    $rootScope.isProfileUpdated = true;
+                }
+            }
+        });
+    };
 
 });

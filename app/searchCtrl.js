@@ -1,4 +1,4 @@
-app.controller("searchCtrl", function(md5, $http, $scope, $rootScope, uuid2, $location){
+app.controller("searchCtrl", function(md5, $http, $scope){
 
     $scope.message = "";
     $scope.result = "";

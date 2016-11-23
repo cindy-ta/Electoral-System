@@ -3,6 +3,20 @@ app.controller("profileCtrl", function(md5, $http, $scope, $rootScope, uuid2, $l
     $scope.message = "";
     $scope.profile = {};
 
+
+    home_check1();
+
+
+    function home_check1(){
+        $http.post('server/checkProfile.php?user_name='+$rootScope.session.user_name+'&user_type='+$rootScope.session.access).success(function (updatedProfile) {
+            if($rootScope.session.access == "Voter" || $rootScope.session.access == "Manager"){
+                if(updatedProfile.length == 4){
+                    $rootScope.isProfileUpdated = true;
+                }
+            }
+        });
+    };
+
     $scope.updateProfile = function() {
         $http.post('server/updateProfile.php?first_name='+$scope.profile.first_name+
                                             '&last_name='+$scope.profile.last_name+

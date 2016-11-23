@@ -6,6 +6,7 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
     $scope.isManager = false;
     $scope.isLoggedIn = false;
     $scope.good_email = false;
+    $rootScope.isProfileUpdated = false;
 
     function getUserAuthenticationAndValidate( user ) {
 
@@ -54,10 +55,6 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
         })
     }
 
-    /*   function redirectToHome(){
-     $location.path("/home");
-     }*/
-
     $scope.endSession = function(){
         var old_session = $rootScope.session;
         $http.post('server/endSession.php?session='+old_session).success(function () {
@@ -66,7 +63,6 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
             $location.path('/login');
             $rootScope.isProfileUpdated = false;
         })
-
     }
 
     $scope.redirectToLoginPage = function(){
