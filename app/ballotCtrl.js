@@ -51,7 +51,7 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
                     + "<br><h4>" + candidates[i].party_name
                     + "<br>" + candidates[i].designation + "</h4>"
                     + "<br><h5>" + candidates[i].bio
-                    + "<br>" + candidates[i].website + "</h5>";
+                    + "<br>" + candidates[i].website_link + "</h5>";
             }
 
             $scope.people = [];
