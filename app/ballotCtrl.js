@@ -21,6 +21,8 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
         });
     };
 
+
+    // new changes
     $http.post('server/getPollStatus.php?election_id=' + $scope.selectedElection[0].election_id +
         "&user_type=" +  $scope.session.user_type +
         "&user_name=" + $scope.session.user_name).success(function (msg) {
