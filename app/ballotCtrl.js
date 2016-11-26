@@ -5,6 +5,7 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
     $scope.allCandidates = [];
     $scope.isControlPoll = false;
     $scope.election_candidates = [];
+    $scope.selectedElection = [];
 
 
     home_check1();
@@ -44,6 +45,8 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
 
     $scope.findAllElectionInfo = function(election) {
         //$scope.message = election[0].title;
+
+        $scope.selectedElection = election;
 
         //$scope.message = election;
         //$scope.message = election.election_id;
@@ -156,7 +159,26 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
 
         //$scope.message = $scope.selected_candidate; //gives me candidate_id
 
+        $http.post('server/castVote.php?voter_id=' + $scope.session.user_name + "&election_id=" + $scope.selectedElection[0].election_id + "&candidate_id=" + $scope.selected_candidate + "&link_id=" + $scope.selectedElection[1]).success(function (msg) {
+            if(msg.length == 10)
+            {
+                if(msg == 1111111111)
+                {
+                    $scope.message = "No such link found";
+                }else if(msg == 2222222222)
+                {
+                    $scope.message = "Vote saving error";
+                }else
+                {
+                    $scope.message = "Error saving in the election voter relations";
+                }
+            }else
+            {
+                $scope.message = "Vote successfully saved!!"
 
+            }
+
+        })
 
 
     }
