@@ -44,8 +44,13 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
     }
 
     $scope.showVoting = function() {
-        if ($scope.isPollEnabled && !$scope.hasVoted) {
-            return true;
+        if ($rootScope.session.access == "Voter") {
+            if ($scope.isPollEnabled && !$scope.hasVoted) {
+                return true;
+            }
+            else {
+                return false;
+            }
         }
         else {
             return false;
@@ -123,7 +128,7 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
 
 
 
-        $http.post('server/getCandidateInfo.php?election_id=' + election[0].election_id).success(function (candidates) {
+        $http.post('server/getCandidateInfo.php?election_id=' + election[0].election_id + '&link_id=' + election[1]).success(function (candidates) {
             //$scope.message = candidates[0].first_name;
 
             $scope.candidate = [];

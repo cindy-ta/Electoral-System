@@ -1,6 +1,7 @@
 app.controller("newPollCtrl", function($scope, $rootScope, $http){
 
     $scope.message = "";
+    $scope.validDate = false;
     $scope.newpoll = {};
     $scope.precincts = [];
     $scope.linkCandidates = [];
@@ -97,6 +98,27 @@ app.controller("newPollCtrl", function($scope, $rootScope, $http){
     $http.post('server/allExistingPrecincts.php?').success(function (precincts) {
         $scope.allPrecincts = precincts;
     });
+
+    /*
+    $scope.checkValidDate = function(){
+        //var validPassword = false;
+        $scope.validDate = false;
+        /*var letterNumber = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
+        //$scope.message = ($scope.login.password.match(letterNumber));
+
+        //console.log("Hello = " + $scope.login.password);
+
+        if(($scope.login.password.match(letterNumber)).length>0)
+        {
+            if(passwordLength>=8){
+                //validPassword = true;
+                $scope.good_password_style = true;
+            }
+        }
+        //return validPassword;
+        //$scope.message = $scope.good_password_style;
+        return $scope.good_password_style;
+    };*/
 
     $scope.selectSublevel = function(level) {
         //$scope.message = level;
