@@ -17,6 +17,25 @@ app.controller("profileCtrl", function(md5, $http, $scope, $rootScope, uuid2, $l
         });
     };
 
+    if($rootScope.isProfileUpdated == true){
+        $http.post('server/showProfile.php?user_type='+$rootScope.session.access+'&user_name='+$rootScope.session.user_name).success(function (currentProfile) {
+            $scope.currentProfile = currentProfile;
+            $scope.profile.first_name = $scope.currentProfile[0].first_name;
+            $scope.profile.last_name = $scope.currentProfile[0].last_name;
+            $scope.profile.government_ID = $scope.currentProfile[0].government_id;
+            $scope.profile.age = $scope.currentProfile[0].age;
+            $scope.profile.gender = $scope.currentProfile[0].gender;
+            $scope.profile.contact_number = $scope.currentProfile[0].contact_number;
+            $scope.profile.address_line1 = $scope.currentProfile[0].line_1;
+            $scope.profile.address_line2 = $scope.currentProfile[0].line_2;
+            $scope.profile.city = $scope.currentProfile[0].city;
+            $scope.profile.state = $scope.currentProfile[0].state;
+            $scope.profile.country = $scope.currentProfile[0].country;
+            $scope.profile.zip_code = $scope.currentProfile[0].zip_code;
+
+        });
+    }
+
     $scope.updateProfile = function() {
         $http.post('server/updateProfile.php?first_name='+$scope.profile.first_name+
                                             '&last_name='+$scope.profile.last_name+
@@ -31,10 +50,9 @@ app.controller("profileCtrl", function(md5, $http, $scope, $rootScope, uuid2, $l
                                             '&country='+$scope.profile.country+
                                             '&zip_code='+$scope.profile.zip_code+
                                             '&user_name='+$rootScope.session.user_name+
-                                            '&user_type='+$rootScope.session.access  ).success(function (profile) {
+                                            '&user_type='+$rootScope.session.access+
+                                            '&isUpdated='+$rootScope.isProfileUpdated).success(function (profile) {
 
-            console.log("User_type = " + $rootScope.session.access);
-            console.log("User_name = " + $rootScope.session.user_name);
 
             if (profile.length == 4){
                 $scope.message = "Profile Successfully Updated";
