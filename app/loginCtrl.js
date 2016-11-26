@@ -7,6 +7,7 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
     $scope.isLoggedIn = false;
     $scope.good_email = false;
     $rootScope.isProfileUpdated = false;
+    $scope.voterAge = 0;
 
     function getUserAuthenticationAndValidate( user ) {
 
@@ -239,6 +240,12 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
             if ($scope.admin_check() == true){
                 $scope.showBallot = true;
             }
+
+            if($scope.voterAge < 18)
+            {
+                $scope.showBallot = true;
+            }
+
         }
         return !($scope.showBallot);
     };
@@ -259,6 +266,7 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
             }else if(updatedProfile.length == 4){
                 $rootScope.isProfileUpdated = true;
                 console.log("Profile is updated")
+                $scope.getVoterAge()
                 $scope.redirectToHome()
             }else{
                 console.log("Profile needs to be updated");
@@ -294,6 +302,19 @@ app.controller("loginCtrl", function(md5, $http, $scope, $rootScope, uuid2, $loc
             $scope.message = emailAddress;
         });
 
+    }
+
+    $scope.getVoterAge = function()
+    {
+        if($rootScope.session.access == "Voter") {
+            $http.post('server/getVoterAge.php?voter_id=' + $rootScope.session.user_name).success(function (data) {
+                if(data.length < 10)
+                {
+                    $scope.voterAge = data;
+                }
+
+            })
+        }
     }
 
 });
