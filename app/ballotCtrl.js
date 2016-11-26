@@ -6,6 +6,7 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
     $scope.isPollEnabled = false;
     $scope.election_candidates = [];
     $scope.selectedElection = [];
+    $scope.hasVoted = false;
 
 
     home_check1();
@@ -21,41 +22,66 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
         });
     };
 
-
-    // new changes
-    $http.post('server/getPollStatus.php?election_id=' + $scope.selectedElection[0].election_id +
-        "&user_type=" +  $scope.session.user_type +
-        "&user_name=" + $scope.session.user_name).success(function (msg) {
-
-        if(msg.length == 10)
-        {
-            if(msg == "1111111111")
-            {
-                $scope.message = "Error finding precinct for this voter";
-            }else if(msg == "2222222222")
-            {
-                $scope.message = "Error finding zipcode for this voter"
-            }else if(msg == "3333333333")
-            {
-                $scope.message = "Error finding precinct for this manager"
-            }else
-            {
-                $scope.message = "Error getting Poll Status";
-            }
-
-            $scope.isPollEnabled = false;
-        }else
-        {
-            if(msg == 0)
-            {
-                $scope.isPollEnabled = false;
-            }else
-            {
-                $scope.isPollEnabled = true;
-            }
+    function checkIfVoted() {
+        console.log("checking if voted...");
+        if ($rootScope.session.access == "Voter") {
+            $http.post('server/checkIfVoted.php?voter_id=' + $scope.session.user_name + "&election_id=" + $scope.selectedElection[0].election_id).success(function (voterStatus) {
+                if (voterStatus.length == 1) {
+                    $scope.hasVoted = false; // can still vote
+                    //console.log("can vote");
+                }
+                else {
+                    $scope.hasVoted = true; // unable to vote (has already casted vote)
+                    //console.log("cannot vote");
+                }
+            })
+        }
+        else {
+            $scope.hasVoted = true; // unable to vote (managers)
+            //console.log("cannot vote");
         }
 
-    });
+    }
+
+    $scope.showVoting = function() {
+        if ($scope.isPollEnabled && !$scope.hasVoted) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+
+    // new changes
+    function getPollStatus() {
+        $http.post('server/getPollStatus.php?election_id=' + $scope.selectedElection[0].election_id +
+            "&user_type=" + $scope.session.access +
+            "&user_name=" + $scope.session.user_name).success(function (msg) {
+
+
+            if (msg.length >= 10) {
+                if (msg == "1111111111") {
+                    $scope.message = "Error finding precinct for this voter";
+                } else if (msg == "2222222222") {
+                    $scope.message = "Error finding zipcode for this voter"
+                } else if (msg == "3333333333") {
+                    $scope.message = "Error finding precinct for this manager"
+                }
+
+                $scope.isPollEnabled = false;
+            } else {
+                if (msg == 0) {
+                    $scope.isPollEnabled = false;
+                } else {
+                    $scope.isPollEnabled = true;
+                }
+            }
+
+        });
+
+
+    }
 
     $scope.manager_check = function(){
 
@@ -83,6 +109,9 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
         //$scope.message = election[0].title;
 
         $scope.selectedElection = election;
+
+        getPollStatus();
+        checkIfVoted();
 
         //$scope.message = election;
         //$scope.message = election.election_id;
@@ -166,15 +195,16 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
 
     $scope.changePollStatus = function() {
 
-        var toEnable = true;
+        var toEnable = 1;
         if ($scope.isPollEnabled == true) {
-            toEnable = false;
+            toEnable = 0;
         }
 
         $http.post('server/updatePollStatus.php?election_id=' + $scope.selectedElection[0].election_id +
                                                 "&toEnable=" + toEnable +
                                                 "&manager_id=" + $scope.session.user_name).success(function (msg) {
-            if(msg.length == 10)
+            //$scope.message = msg;
+            if(msg.length >= 10)
             {
                 if(msg == "9999999999")
                 {
@@ -216,7 +246,7 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
             }else
             {
                 $scope.message = "Vote successfully saved!!"
-
+                checkIfVoted();
             }
 
         })

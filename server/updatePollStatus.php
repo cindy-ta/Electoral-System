@@ -8,11 +8,11 @@ if(isset($_GET['election_id']) && isset($_GET['toEnable']) && isset($_GET['manag
 
     $precinct_id = 0;
 
-    $query2="SELECT precinct_id as id FROM Precincts where manager_id = '$user_name'";
-    $result2 = $mysqli->query($query2) or die($mysqli->error.__LINE__);
-    if($result2->num_rows > 0) {
-        while($row2 = $result2->fetch_assoc()) {
-            $precinct_id = (int)$row2['id'];
+    $query="SELECT precinct_id as id FROM Precincts where manager_id = '$manager_id'";
+    $result = $mysqli->query($query) or die($mysqli->error.__LINE__);
+    if($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            $precinct_id = (int)$row['id'];
         }
     }else
     {
