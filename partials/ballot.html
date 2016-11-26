@@ -22,8 +22,8 @@
 
             <div ng-hide="manager_check()">
                 <center>
-                    <button type="button" ng-hide="!checkIfClicked()" ng-click="controlPoll()" id="button" class="btn btn-danger">Disable Polling</button>
-                    <button type="button" ng-hide="checkIfClicked()" ng-click="controlPoll()" id="button" class="btn btn-success">Enable Polling</button>
+                    <button type="button" ng-hide="!isPollEnabled" ng-click="changePollStatus()" id="button" class="btn btn-danger">Disable Polling</button>
+                    <button type="button" ng-hide="isPollEnabled" ng-click="changePollStatus()" id="button" class="btn btn-success">Enable Polling</button>
                 </center><br/>
             </div>
             <div class="well">
@@ -42,7 +42,7 @@
 
             </div>
 
-            <div class="thumbnail" ng-hide="!checkIfClicked()">
+            <div class="thumbnail" ng-hide="!isPollEnabled">
 
                 <form>
                     <center><h2>Cast Your Vote!</h2></center>

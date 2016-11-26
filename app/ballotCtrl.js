@@ -3,7 +3,7 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
     $scope.isManager = false;
     $scope.message = "";
     $scope.allCandidates = [];
-    $scope.isControlPoll = false;
+    $scope.isPollEnabled = false;
     $scope.election_candidates = [];
     $scope.selectedElection = [];
 
@@ -20,6 +20,40 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
             }
         });
     };
+
+    $http.post('server/getPollStatus.php?election_id=' + $scope.selectedElection[0].election_id +
+        "&user_type=" +  $scope.session.user_type +
+        "&user_name=" + $scope.session.user_name).success(function (msg) {
+
+        if(msg.length == 10)
+        {
+            if(msg == "1111111111")
+            {
+                $scope.message = "Error finding precinct for this voter";
+            }else if(msg == "2222222222")
+            {
+                $scope.message = "Error finding zipcode for this voter"
+            }else if(msg == "3333333333")
+            {
+                $scope.message = "Error finding precinct for this manager"
+            }else
+            {
+                $scope.message = "Error getting Poll Status";
+            }
+
+            $scope.isPollEnabled = false;
+        }else
+        {
+            if(msg == 0)
+            {
+                $scope.isPollEnabled = false;
+            }else
+            {
+                $scope.isPollEnabled = true;
+            }
+        }
+
+    });
 
     $scope.manager_check = function(){
 
@@ -128,30 +162,35 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
 
     }
 
-    $scope.controlPoll = function() {
+    $scope.changePollStatus = function() {
 
-        if ($scope.isControlPoll == true) {
-            $scope.isControlPoll = false;
-            //console.log("False");
+        var toEnable = true;
+        if ($scope.isPollEnabled == true) {
+            toEnable = false;
         }
 
-        else {
-            $scope.isControlPoll = true;
-            //console.log("True");
-        }
-
-    }
-
-    $scope.checkIfClicked = function() {
-        if ($scope.isControlPoll == true) {
-            //console.log("clicked = true");
-            return true;
-        }
-        else {
-            //console.log("clicked = false");
-            return false;
-        }
-
+        $http.post('server/updatePollStatus.php?election_id=' + $scope.selectedElection[0].election_id +
+                                                "&toEnable=" + toEnable +
+                                                "&manager_id=" + $scope.session.user_name).success(function (msg) {
+            if(msg.length == 10)
+            {
+                if(msg == "9999999999")
+                {
+                    $scope.message = "Poll Status not updated.";
+                }else
+                {
+                    $scope.message = "Precinct associated with this manager not found.";
+                }
+            }else
+            {
+                if($scope.isPollEnabled) {
+                    $scope.isPollEnabled = false;
+                }else
+                {
+                    $scope.isPollEnabled = true;
+                }
+            }
+        });
 
     }
 
