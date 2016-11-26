@@ -152,27 +152,23 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
 
         // NEED TO ADD A CHECK HERE TO MAKE SURE THAT THE ELECTION HAS ENDED
 
-        $http.post('server/getResults.php?election_id=' + election[0].election_id).success(function (results) {
+        $http.post('server/getResults.php?election_id=' + election[0].election_id + '&link_id=' + election[1]).success(function (results) {
 
             //$scope.message = results[0].candidate_id;
             //$scope.message = results[0].votes;
 
             //$scope.message = results.length;
+            //$scope.message = results[0];
             $scope.candidate_results = [];
 
             // gather all candidates
             for ( var i = 0; i < results.length; i++ ) {
-                if ($scope.candidate_results[results[i].candidate_id] == null) {
-                    $scope.candidate_results[results[i].candidate_id] = parseInt(results[i].votes, 10);
-                }
-                else {
-                    $scope.candidate_results[results[i].candidate_id] += parseInt(results[i].votes, 10);
-                }
+                $scope.candidate_results[results[i][0].candidate_id] = parseInt(results[i][0].votes, 10);
             }
 
-            //$scope.message = $scope.candidate_results;
+            $scope.message = $scope.candidate_results;
 
-            // calculate all votes
+            // calculate most votes
             var maxResult = 0;
             var winner = "";
 
@@ -183,14 +179,19 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
                 }
             }
 
-            // Print things to HTML page
-            $scope.print_winner = "The winner of this election is " + winner + "<br> with a total of " + maxResult + " votes";
+            // find winning candidate
+            for ( var i = 0; i < results.length; i++) {
+                if (results[i][1].candidate_id == winner) {
+                    $scope.print_winner = "The winner of this precinct election is " + results[i][1].first_name + " " + results[i][1].last_name + "<br> with a total of " + maxResult + " votes";
+                }
+            }
+
 
             $scope.print_results = [];
 
             // c
             for ( var i = 0; i < results.length; i++) {
-                $scope.print_results[i] = results[i].candidate_id + " finished with a total of " + $scope.candidate_results[results[i].candidate_id] + " votes ";
+                $scope.print_results[i] = results[i][1].first_name + " " + results[i][1].last_name + " finished with a total of " + $scope.candidate_results[results[i][0].candidate_id] + " votes ";
             }
 
 

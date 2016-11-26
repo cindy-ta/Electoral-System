@@ -62,12 +62,12 @@
 
             <div class="thumbnail">
 
-                <center><h2>Election Results</h2><br/>
+                <center><h2>Precinct Election Results</h2><br/>
 
                 <h4><div ng-bind-html="print_winner"></div></h4></center>
                 <br/><br/>
 
-                <h5>The full voting results are as follows, </h5><br/>
+                <h5>The voting results for this precinct are as follows, </h5><br/>
                 <div ng-repeat="resultsDetails in print_results track by $index">
                     <p ng-bind-html="resultsDetails"></p>
                 </div>
