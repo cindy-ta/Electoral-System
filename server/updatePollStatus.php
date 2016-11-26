@@ -29,8 +29,17 @@ if(isset($_GET['election_id']) && isset($_GET['toEnable']) && isset($_GET['manag
         echo $json_response = json_encode($result);
     }else
     {
-        $num = "9999999999";
-        echo $json_response = json_encode($num);
+        $query="insert into Poll_Statuses (precinct_id, election_id, isEnabled) values ('$precinct_id', '$election_id', '$toEnable')";
+        $result = $mysqli->query($query) or die($mysqli->error.__LINE__);
+        $result = $mysqli->affected_rows;
+        if($result == 1)
+        {
+            echo $json_response = json_encode($result);
+        }else
+        {
+            echo $json_response = json_encode("9999999999");
+            exit();
+        }
     }
 
 

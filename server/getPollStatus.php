@@ -1,6 +1,6 @@
 <?php
 require_once '../includes/db.php'; // The mysql database connection script
-if(isset(isset($_GET['election_id']) && isset($_GET['user_name']) && isset($_GET['user_type'])  )
+if(isset($_GET['election_id']) && isset($_GET['user_name']) && isset($_GET['user_type'])  )
 {
     $user_name = $_GET['user_name'];
     $election_id = $_GET['election_id'];
