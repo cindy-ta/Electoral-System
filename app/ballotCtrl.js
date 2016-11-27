@@ -12,6 +12,10 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
     $scope.hasEndDatePassed = false;
     $scope.hasSelectedElection = false;
 
+    $scope.statusChecked = false;
+    $scope.ageFetched = false;
+    $scope.duplicateVoteChecked = false;
+
     getVoterAge();
     home_check1();
 
@@ -34,7 +38,8 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
                 {
                     $scope.voterAge = data;
                 }
-
+                $scope.ageFetched = true;
+                showInfo();
             });
         }
     };
@@ -51,6 +56,9 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
                     $scope.hasVoted = true; // unable to vote (has already casted vote)
                     //console.log("cannot vote");
                 }
+
+                $scope.duplicateVoteChecked = true;
+                showInfo();
             })
         }
         else {
@@ -100,6 +108,9 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
                 }
             }
 
+            $scope.statusChecked = true;
+            showInfo();
+
         });
 
 
@@ -130,27 +141,17 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
     $scope.findAllElectionInfo = function(election) {
         //$scope.message = election[0].title;
 
-        $scope.hasSelectedElection = true;
+        $scope.info = "";
 
+        $scope.hasSelectedElection = true;
         $scope.selectedElection = election;
+
+        $scope.statusChecked = false;
+        $scope.duplicateVoteChecked = false;
 
         getPollStatus();
         checkIfVoted();
         checkEndDate();
-
-        console.log($scope.voterAge);
-        console.log("is polled enable: " + $scope.isPollEnabled);
-
-        /*if($scope.voterAge < 18)
-        {
-            $scope.info = "Restricted to vote because age is less than 18 years";
-        }else*/ if(!$scope.isPollEnabled)
-        {
-            $scope.info = "Poll is closed. Can't vote.";
-        }else if($scope.hasVoted)
-        {
-            $scope.info = "Already voted. Can't vote again."
-        }
 
         //$scope.message = election;
         //$scope.message = election.election_id;
@@ -200,7 +201,7 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
                 $scope.candidate_results[results[i][0].candidate_id] = parseInt(results[i][0].votes, 10);
             }
 
-            $scope.message = $scope.candidate_results;
+            //$scope.message = $scope.candidate_results;
 
             // calculate most votes
             var maxResult = 0;
@@ -299,21 +300,46 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
     
      function checkEndDate() {
         $http.post('server/getElectionInfo.php?election_id=' + $scope.selectedElection[0].election_id).success(function (data) {
-            if(data.length < 10)
+
+            if(data.election_id > 0)
             {
-                var endDate = data.end_date.split(" ")[0];
+                var endDate = new Date(data.end_date.split(" ")[0]);
 
                 if(endDate > (new Date()))
                 {
+
                     $scope.hasEndDatePassed = false;
                 }else
                 {
+
                     $scope.hasEndDatePassed = true;
                 }
             }
 
+
         });
     }
 
+
+    function showInfo()
+    {
+
+
+        if($scope.duplicateVoteChecked && $scope.statusChecked && $scope.ageFetched)
+        {
+            if($scope.voterAge < 18)
+            {
+                $scope.info = "Restricted to vote because age is less than 18 years";
+            }else if(!$scope.isPollEnabled)
+            {
+                $scope.info = "Poll is closed. Can't vote.";
+            }else if($scope.hasVoted)
+            {
+                $scope.info = "Already voted. Can't vote again."
+            }
+
+        }
+
+    }
 
 });

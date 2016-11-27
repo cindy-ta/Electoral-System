@@ -5,7 +5,7 @@ if(isset($_GET['voter_id']) )
     $voter_id = $_GET['voter_id'];
 
     $age = 0;
-    $query="select age from Voters voter_id = '$voter_id'";
+    $query="select age from Voters where voter_id = '$voter_id'";
     $result = $mysqli->query($query) or die($mysqli->error.__LINE__);
     if($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
