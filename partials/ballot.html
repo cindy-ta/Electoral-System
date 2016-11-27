@@ -5,9 +5,9 @@
 
     <div class="row">
 
-        <div class="col-md-9">
+        <div class="col-md-9" class="form-group">
 
-            <select ng-options="election[0].title for election in allElections" ng-model="election" ng-change="findAllElectionInfo(election)" name="election.election_id" id="election.election_id">
+            <select ng-options="election[0].title for election in allElections" ng-model="election" ng-change="findAllElectionInfo(election)" name="election.election_id" id="election.election_id" class="form-control">
                 <option value="">- Select Election -</option>
             </select>
 
