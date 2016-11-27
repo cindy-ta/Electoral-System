@@ -11,68 +11,74 @@
                 <option value="">- Select Election -</option>
             </select>
 
-            <div class="thumbnail">
-                <div class="caption-full">
-                    <h2><div ng-bind-html="election_title"></div></h2>
-                    <h3><div ng-bind-html="election_startDate"></div> to <div ng-bind-html="election_endDate"></div></h3>
-                    <h4><div ng-bind-html="election_description"></div></h4>
-                    <h4><div ng-bind-html="election_level"></div></h4>
+            <div ng-hide="hasSelectedElection">
+                <br/><br/><br/>
+
+                {{ info }}
+
+                <div class="thumbnail">
+                    <div class="caption-full">
+                        <h2><div ng-bind-html="election_title"></div></h2>
+                        <h3><div ng-bind-html="election_startDate"></div> to <div ng-bind-html="election_endDate"></div></h3>
+                        <h4><div ng-bind-html="election_description"></div></h4>
+                        <h4><div ng-bind-html="election_level"></div></h4>
+                    </div>
                 </div>
-            </div>
 
-            <div ng-hide="manager_check()">
-                <center>
-                    <button type="button" ng-hide="!isPollEnabled" ng-click="changePollStatus()" class="btn btn-danger">Disable Polling</button>
-                    <button type="button" ng-hide="isPollEnabled" ng-click="changePollStatus()" class="btn btn-success">Enable Polling</button>
-                </center><br/>
-            </div>
-            <div class="well">
+                <div ng-hide="manager_check()">
+                    <center>
+                        <button type="button" ng-hide="!isPollEnabled" ng-click="changePollStatus()" class="btn btn-danger">Disable Polling</button>
+                        <button type="button" ng-hide="isPollEnabled" ng-click="changePollStatus()" class="btn btn-success">Enable Polling</button>
+                    </center><br/>
+                </div>
+                <div class="well">
 
-                <div class="row">
+                    <div class="row">
 
-                    <div ng-repeat="name in candidate track by $index">
-                        <p ng-bind-html="name"></p>
+                        <div ng-repeat="name in candidate track by $index">
+                            <p ng-bind-html="name"></p>
+                        </div>
+
                     </div>
 
+                    <hr>
+
+                    <hr>
+
                 </div>
 
-                <hr>
+                <div class="thumbnail" ng-hide="!showVoting()">
 
-                <hr>
+                    <form>
+                        <center><h2>Cast Your Vote!</h2></center>
 
-            </div>
+                        <div ng-repeat="person in people">
+                            <h4>
+                                <input type="radio" ng-model="$parent.selected_candidate" value="{{person.candidate_id}}" required />
+                                {{person.first_name + " " + person.last_name}}
+                            </h4>
+                        </div>
 
-            <div class="thumbnail" ng-hide="!showVoting()">
 
-                <form>
-                    <center><h2>Cast Your Vote!</h2></center>
+                        <button type="submit" class="btn btn-default" ng-click="castVote()">Vote</button>
+                    </form>
+                </div>
 
-                    <div ng-repeat="person in people">
-                        <h4>
-                            <input type="radio" ng-model="$parent.selected_candidate" value="{{person.candidate_id}}" required />
-                            {{person.first_name + " " + person.last_name}}
-                        </h4>
+
+                <div class="thumbnail" ng-hide="hasEndDatePassed">
+
+                    <center><h2>Precinct Election Results</h2><br/>
+
+                        <h4><div ng-bind-html="print_winner"></div></h4></center>
+                    <br/><br/>
+
+                    <h5>The voting results for this precinct are as follows, </h5><br/>
+                    <div ng-repeat="resultsDetails in print_results track by $index">
+                        <p ng-bind-html="resultsDetails"></p>
                     </div>
 
 
-                    <button type="submit" class="btn btn-default" ng-click="castVote()">Vote</button>
-                </form>
-            </div>
-
-
-            <div class="thumbnail">
-
-                <center><h2>Precinct Election Results</h2><br/>
-
-                <h4><div ng-bind-html="print_winner"></div></h4></center>
-                <br/><br/>
-
-                <h5>The voting results for this precinct are as follows, </h5><br/>
-                <div ng-repeat="resultsDetails in print_results track by $index">
-                    <p ng-bind-html="resultsDetails"></p>
                 </div>
-
-
             </div>
 
         </div>

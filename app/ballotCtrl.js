@@ -7,8 +7,12 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
     $scope.election_candidates = [];
     $scope.selectedElection = [];
     $scope.hasVoted = false;
+    $scope.voterAge = 0;
+    $scope.info = "";
+    $scope.hasEndDatePassed = false;
+    $scope.hasSelectedElection = false;
 
-
+    getVoterAge();
     home_check1();
 
 
@@ -45,7 +49,7 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
 
     $scope.showVoting = function() {
         if ($rootScope.session.access == "Voter") {
-            if ($scope.isPollEnabled && !$scope.hasVoted) {
+            if ($scope.isPollEnabled && $scope.voterAge > 18 && !$scope.hasVoted) {
                 return true;
             }
             else {
@@ -113,10 +117,24 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
     $scope.findAllElectionInfo = function(election) {
         //$scope.message = election[0].title;
 
+        $scope.hasSelectedElection = true;
+
         $scope.selectedElection = election;
 
         getPollStatus();
         checkIfVoted();
+        checkEndDate();
+
+        if($scope.voterAge < 18)
+        {
+            $scope.info = "Restricted to vote because age is less than 18 years";
+        }else if(!$scope.isPollEnabled)
+        {
+            $scope.info = "Poll is closed. Can't vote.";
+        }else if($scope.hasVoted)
+        {
+            $scope.info = "Already voted. Can't vote again."
+        }
 
         //$scope.message = election;
         //$scope.message = election.election_id;
@@ -260,6 +278,37 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
 
     }
 
+
+    $scope.getVoterAge = function()
+    {
+        if($rootScope.session.access == "Voter") {
+            $http.post('server/getVoterAge.php?voter_id=' + $rootScope.session.user_name).success(function (data) {
+                if(data.length < 10)
+                {
+                    $scope.voterAge = data;
+                }
+
+            })
+        }
+    }
+    
+    $scope.checkEndDate = function () {
+        $http.post('server/getElectionInfo.php?election_id=' + $scope.selectedElection[0].election_id).success(function (data) {
+            if(data.length < 10)
+            {
+                var endDate = data.end_date.split(" ")[0];
+
+                if(endDate > (new Date()))
+                {
+                    $scope.hasEndDatePassed = false;
+                }else
+                {
+                    $scope.hasEndDatePassed = true;
+                }
+            }
+
+        });
+    }
 
 
 });
