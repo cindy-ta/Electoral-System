@@ -12,12 +12,17 @@
 
     <div class="row">
 
+        <div ng-repeat="result in display_dashboard track by $index">
+            <div class="well">
+                <hp ng-bind-html="result"></hp>
+            </div>
+        </div>
 
-        <div ng-repeat="election in dashboard_elections track by $index">
+        <!-- <div ng-repeat="election in dashboard_elections track by $index">
             <div class="well">
                 <hp ng-bind-html="election"></hp>
             </div>
-        </div>
+        </div> -->
 
     </div>
 </div>
