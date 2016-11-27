@@ -26,6 +26,19 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
         });
     };
 
+    function getVoterAge()
+    {
+        if($rootScope.session.access == "Voter") {
+            $http.post('server/getVoterAge.php?voter_id=' + $rootScope.session.user_name).success(function (data) {
+                if(data.length < 10)
+                {
+                    $scope.voterAge = data;
+                }
+
+            });
+        }
+    };
+
     function checkIfVoted() {
         console.log("checking if voted...");
         if ($rootScope.session.access == "Voter") {
@@ -125,10 +138,13 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
         checkIfVoted();
         checkEndDate();
 
-        if($scope.voterAge < 18)
+        console.log($scope.voterAge);
+        console.log("is polled enable: " + $scope.isPollEnabled);
+
+        /*if($scope.voterAge < 18)
         {
             $scope.info = "Restricted to vote because age is less than 18 years";
-        }else if(!$scope.isPollEnabled)
+        }else*/ if(!$scope.isPollEnabled)
         {
             $scope.info = "Poll is closed. Can't vote.";
         }else if($scope.hasVoted)
@@ -279,20 +295,9 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
     }
 
 
-    $scope.getVoterAge = function()
-    {
-        if($rootScope.session.access == "Voter") {
-            $http.post('server/getVoterAge.php?voter_id=' + $rootScope.session.user_name).success(function (data) {
-                if(data.length < 10)
-                {
-                    $scope.voterAge = data;
-                }
 
-            })
-        }
-    }
     
-    $scope.checkEndDate = function () {
+     function checkEndDate() {
         $http.post('server/getElectionInfo.php?election_id=' + $scope.selectedElection[0].election_id).success(function (data) {
             if(data.length < 10)
             {
