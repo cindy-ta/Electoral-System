@@ -13,6 +13,7 @@ app.controller("dashboardCtrl", function(md5, $http, $scope, $rootScope, uuid2, 
         $scope.display_dashboard = [];
         $scope.dashboard_results = [];
         $scope.dashboard_winner = [];
+        $scope.all_results = []; // for admin view
 
         for ( var j = 0; j < allElections.length + 1; j++ ) {
             //var j = 23;
@@ -46,13 +47,37 @@ app.controller("dashboardCtrl", function(md5, $http, $scope, $rootScope, uuid2, 
                     }
                 }
 
+                for ( var i = 0; i < $scope.dashboard_results.length; i++) {
+                    if ($scope.dashboard_results[i] != null) {
+                        // have index of candidate_id
+                        for ( var k = 0; k < allElections[j-1][1].length; k++) {
+                            if (allElections[j-1][1][k][1].candidate_id == i) {
+                                $scope.all_results[i] = allElections[j-1][1][k][1].first_name + " " + allElections[j-1][1][k][1].last_name + " finished with a total of " + $scope.dashboard_results[i] + " votes.<br>";
+                            }
 
-                $scope.display_dashboard[j - 1] =
-                    "<h3>" + allElections[j - 1][0].title + "</h3>"
-                    + "<br><h4>" + allElections[j - 1][0].start_date + " to " + allElections[j - 1][0].end_date
-                    + "<br>Election Description: " + allElections[j - 1][0].description
-                    + "<br>Election Level: " + allElections[j - 1][0].level + "</h4>"
-                    + "<br>" + $scope.dashboard_winner;
+                        }
+
+
+                    }
+                }
+
+                if ($rootScope.session.access == "Admin") {
+                    $scope.display_dashboard[j - 1] =
+                        "<h3>" + allElections[j - 1][0].title + "</h3>"
+                        + "<br><h4>" + allElections[j - 1][0].start_date + " to " + allElections[j - 1][0].end_date
+                        + "<br>Election Description: " + allElections[j - 1][0].description
+                        + "<br>Election Level: " + allElections[j - 1][0].level + "</h4>"
+                        + "<br>" + $scope.dashboard_winner
+                        + "<br>" + $scope.all_results.replace(',' , ' ');
+                }
+                else {
+                    $scope.display_dashboard[j - 1] =
+                        "<h3>" + allElections[j - 1][0].title + "</h3>"
+                        + "<br><h4>" + allElections[j - 1][0].start_date + " to " + allElections[j - 1][0].end_date
+                        + "<br>Election Description: " + allElections[j - 1][0].description
+                        + "<br>Election Level: " + allElections[j - 1][0].level + "</h4>"
+                        + "<br>" + $scope.dashboard_winner;
+                }
 
             }
         }
