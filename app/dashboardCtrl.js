@@ -71,8 +71,10 @@ app.controller("dashboardCtrl", function(md5, $http, $scope, $rootScope, uuid2, 
                 var endDate = new Date(allElections[j-1][0].end_date.split(" ")[0]);
 
                 if(endDate > (new Date())) {
-
                     //$scope.hasEndDatePassed = false; on going election!
+
+                    $scope.display_dashboard[j - 1] +=
+                        "<br><font color='red'><b> * This election is still open to eligible voters! * </b></font>";
 
                     if ($rootScope.session.access == "Admin") {
                         $scope.display_dashboard[j - 1] +=
@@ -87,12 +89,12 @@ app.controller("dashboardCtrl", function(md5, $http, $scope, $rootScope, uuid2, 
 
                     if ($rootScope.session.access == "Admin") {
                         $scope.display_dashboard[j - 1] +=
-                            "<br>" + $scope.dashboard_winner +
+                            "<br><font color='green'><b> * " + $scope.dashboard_winner + "</b></font>" +
                             "<br>" + $scope.all_results;
                     }
                     else {
                         $scope.display_dashboard[j - 1] +=
-                            "<br>" + $scope.dashboard_winner;
+                            "<br><font color='green'><b>" + $scope.dashboard_winner + "</b></font>";
                     }
                 }
 
