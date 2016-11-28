@@ -20,13 +20,13 @@
 
         <div class="form-group">
             <label>Election Time Constraints:</label>
-            <input type="text" ng-model="newpoll.datetime_start" name="newpoll.datetime_start" id="newpoll.datetime_start" tabindex="6" class="form-control" placeholder="Start Date Time  (format: YYYY-MM-DD)">
-            <input type="text" ng-model="newpoll.datetime_end" name="newpoll.datetime_end" id="newpoll.datetime_end" tabindex="7" class="form-control" placeholder="End Date Time  (format: YYYY-MM-DD)">
+            <input type="text" ng-model="newpoll.datetime_start" name="newpoll.datetime_start" id="newpoll.datetime_start" tabindex="3" class="form-control" placeholder="Start Date Time  (format: YYYY-MM-DD)">
+            <input type="text" ng-model="newpoll.datetime_end" name="newpoll.datetime_end" id="newpoll.datetime_end" tabindex="4" class="form-control" placeholder="End Date Time  (format: YYYY-MM-DD)">
         </div>
 
         <div class="form-group">
             <label>Election Location Level:</label>
-            <select ng-model="newpoll.election_level" ng-change="selectSublevel(newpoll.election_level)" name="newpoll.election_level" tabindex="1" class="form-control" id="election_level">
+            <select ng-model="newpoll.election_level" ng-change="selectSublevel(newpoll.election_level)" name="newpoll.election_level" tabindex="5" class="form-control" id="election_level">
                 <option value="">- Select Election Level -</option>
                 <option>Country</option>
                 <option>State</option>
@@ -40,17 +40,17 @@
                 <label>Select Sublevel</label><br/>
 
                 <!-- States -->
-                <select ng-show="stateSelected()" data-ng-options="state.state_name for state in allStates" ng-model="linkCandidate.state" name="state.state_name" id="state.state_name">
+                <select ng-show="stateSelected()" data-ng-options="state.state_name for state in allStates" ng-model="linkCandidate.state" tabindex="6" name="state.state_name" id="state.state_name">
                     <option value="">- Select State -</option>
                 </select>
 
                 <!-- Counties -->
-                <select ng-show="countySelected()" data-ng-options="county.county_name for county in allCounties" ng-model="linkCandidate.county" name="county.county_name" id="county.county_name">
+                <select ng-show="countySelected()" data-ng-options="county.county_name for county in allCounties" ng-model="linkCandidate.county" tabindex="7" name="county.county_name" id="county.county_name">
                     <option value="">- Select County -</option>
                 </select>
 
                 <!-- Precincts -->
-                <select ng-show="precinctSelected()" data-ng-options="precinct.zipcode_start + ' to ' + precinct.zipcode_end for precinct in allPrecincts" ng-model="linkCandidate.precinct" ng-change="findAssignedManager(precinct.precinct_id)"  name="precinct.precinct_id" id="precinct.precinct_id">
+                <select ng-show="precinctSelected()" data-ng-options="precinct.zipcode_start + ' to ' + precinct.zipcode_end for precinct in allPrecincts" tabindex="8" ng-model="linkCandidate.precinct" ng-change="findAssignedManager(precinct.precinct_id)"  name="precinct.precinct_id" id="precinct.precinct_id">
                     <option value="">- Select Precinct -</option>
                 </select>
 
@@ -58,7 +58,7 @@
                     <label>Candidates:</label><br>
 
                     <fieldset data-ng-repeat="existingCandidate in linkCandidate.existingCandidates">
-                        <select data-ng-options="candidate.first_name + ' ' + candidate.last_name for candidate in allCandidates" ng-model="existingCandidate.candidate" name="existingCandidate.candidate" id="existingCandidate.candidate">
+                        <select data-ng-options="candidate.first_name + ' ' + candidate.last_name for candidate in allCandidates" ng-model="existingCandidate.candidate" tabindex="9" name="existingCandidate.candidate" id="existingCandidate.candidate">
                             <option value="">- Select Existing Candidate -</option>
                         </select>
 
@@ -71,16 +71,16 @@
                     <br/><br/>
 
                     <fieldset data-ng-repeat="candidate in linkCandidate.candidates">
-                        <input type="text" ng-model="candidate.firstname" name="firstname" placeholder="Candidate's First Name">
-                        <input type="text" ng-model="candidate.lastname" name="lastname" placeholder="Candidate's Last Name">
-                        <select ng-model="candidate.partyname" name="partyname" tabindex="1" class="form-control" id="partyname">
+                        <input type="text" ng-model="candidate.firstname" name="firstname" placeholder="Candidate's First Name" tabindex="10">
+                        <input type="text" ng-model="candidate.lastname" name="lastname" placeholder="Candidate's Last Name" tabindex="11">
+                        <select ng-model="candidate.partyname" name="partyname" tabindex="1" class="form-control" id="partyname" tabindex="12">
                             <option>Democratic</option>
                             <option>Republican</option>
                             <option>Independent</option>
                         </select>
-                        <input type="text" ng-model="candidate.designation" name="designation" placeholder="Candidate's Designation">
-                        <input type="text" ng-model="candidate.biography" name="biography" placeholder="Candidate's Biography">
-                        <input type="text" ng-model="candidate.website" name="website" placeholder="Candidate's Website">
+                        <input type="text" ng-model="candidate.designation" name="designation" placeholder="Candidate's Designation" tabindex="13">
+                        <input type="text" ng-model="candidate.biography" name="biography" placeholder="Candidate's Biography" tabindex="14">
+                        <input type="text" ng-model="candidate.website" name="website" placeholder="Candidate's Website" tabindex="15">
 
                         <button class="remove" ng-show="$last" ng-click="removeCandidate(linkCandidate)">Remove Candidate</button>
 

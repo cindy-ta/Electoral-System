@@ -7,8 +7,9 @@
 
         <div class="col-md-9" class="form-group">
 
+            <label>Select an Election:</label>
             <select ng-options="election[0].title for election in allElections" ng-model="election" ng-change="findAllElectionInfo(election)" name="election.election_id" id="election.election_id" class="form-control">
-                <option value="">- Select Election -</option>
+
             </select>
 
             <div ng-hide="!hasSelectedElection">
