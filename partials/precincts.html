@@ -8,7 +8,7 @@
     <form>
         <div class="form-group">
             <h4>Select Precinct:</h4>
-            <select ng-options="precinct.zipcode_start + ' to ' + precinct.zipcode_end for precinct in allPrecincts" ng-model="precinct.precinct_id" ng-change="findAssignedManager(precinct.precinct_id)"  name="precinct.precinct_id" id="precinct.precinct_id">
+            <select ng-options="precinct.zipcode_start + ' to ' + precinct.zipcode_end for precinct in allPrecincts" ng-model="precinct.precinct_id" ng-change="findAssignedManager(precinct.precinct_id)"  class="form-control" name="precinct.precinct_id" id="precinct.precinct_id">
                 <option value="">- Select Precinct -</option>
             </select>
         </div>
@@ -22,7 +22,7 @@
         <div class="form-group">
             <br/>
             <h4>Assign New Manager:</h4>
-            <select ng-options="manager.first_name + ' ' + manager.last_name for manager in allManagers" ng-model="precinct.manager" name="precinct.manager" id="precinct.manager">
+            <select ng-options="manager.first_name + ' ' + manager.last_name for manager in allManagers" ng-model="precinct.manager" name="precinct.manager" class="form-control" id="precinct.manager">
                 <option value="">- Select New Manager -</option>
             </select>
         </div>
