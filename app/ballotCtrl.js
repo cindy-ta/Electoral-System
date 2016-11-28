@@ -327,13 +327,13 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
         {
             if($scope.voterAge < 18)
             {
-                $scope.info = "RESTRICTED TO VOTE BECAUSE AGE IS LESS THAN 18 YEARS OLD";
+                $scope.info = "*** RESTRICTED TO VOTE BECAUSE AGE IS LESS THAN 18 YEARS OLD ***";
             }else if(!$scope.isPollEnabled)
             {
-                $scope.info = "POLL IS CLOSED. CANNOT VOTE.";
+                $scope.info = "*** POLL IS CLOSED. CANNOT VOTE. ***";
             }else if($scope.hasVoted)
             {
-                $scope.info = "YOU HAVE ALREADY VOTED. CANNOT VOTE AGAIN."
+                $scope.info = "*** YOU HAVE ALREADY VOTED. CANNOT VOTE AGAIN. ***"
             }
 
         }
