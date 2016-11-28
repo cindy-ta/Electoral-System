@@ -155,9 +155,9 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
 
         //$scope.message = election;
         //$scope.message = election.election_id;
-        $scope.election_info = "<font size='5.5'><b>" + election[0].title + "</b></font>"
-            + "<br><h4>" + election[0].start_date.split(" ")[0] + " to " + election[0].end_date.split(" ")[0]
-            + "<br><b>Election Description: </b>" + election[0].description
+        $scope.election_info = "<font size='7'><center><b>" + election[0].title + "</b></font>"
+            + "<h4>" + election[0].start_date.split(" ")[0] + " to " + election[0].end_date.split(" ")[0] + "</h4></center>"
+            + "<h4><br><b>Election Description: </b>" + election[0].description
             + "<br><b>Election Level: </b>" + election[0].level + "</h4>";
 
 
@@ -327,13 +327,13 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
         {
             if($scope.voterAge < 18)
             {
-                $scope.info = "Restricted to vote because age is less than 18 years";
+                $scope.info = "RESTRICTED TO VOTE BECAUSE AGE IS LESS THAN 18 YEARS OLD";
             }else if(!$scope.isPollEnabled)
             {
-                $scope.info = "Poll is closed. Can't vote.";
+                $scope.info = "POLL IS CLOSED. CANNOT VOTE.";
             }else if($scope.hasVoted)
             {
-                $scope.info = "Already voted. Can't vote again."
+                $scope.info = "YOU HAVE ALREADY VOTED. CANNOT VOTE AGAIN."
             }
 
         }

@@ -12,10 +12,11 @@
             </select>
 
             <div ng-hide="!hasSelectedElection">
-                <br/><br/><br/>
+                <br/>
 
-                {{ info }}
+                <center><font color="red"><font size="3"><b>*** {{ info }} ***</b></font></font></center>
 
+                <br/>
                 <div class="thumbnail">
                     <div class="caption-full">
                         <div ng-bind-html="election_info"></div>
@@ -32,6 +33,7 @@
 
                     <div class="row">
 
+                        <center><h2>Candidate Listing</h2></center>
                         <div ng-repeat="name in candidate track by $index">
                             <div ng-bind-html="name"></div>
                         </div>
