@@ -10,11 +10,13 @@ app.controller("dashboardCtrl", function(md5, $http, $scope, $rootScope, uuid2, 
                                                 // allElections[0][1] will return all links
                                                 // allElections[0][1][0] will return specific links
 
+
         $scope.display_dashboard = [];
         $scope.dashboard_results = [];
         $scope.dashboard_winner = [];
         $scope.all_results = []; // for admin view
 
+        // iterates through each elections
         for ( var j = 0; j < allElections.length + 1; j++ ) {
             //var j = 23;
 
@@ -52,32 +54,49 @@ app.controller("dashboardCtrl", function(md5, $http, $scope, $rootScope, uuid2, 
                         // have index of candidate_id
                         for ( var k = 0; k < allElections[j-1][1].length; k++) {
                             if (allElections[j-1][1][k][1].candidate_id == i) {
-                                $scope.all_results[i] = allElections[j-1][1][k][1].first_name + " " + allElections[j-1][1][k][1].last_name + " finished with a total of " + $scope.dashboard_results[i] + " votes.<br>";
+                                $scope.all_results[i] = " " + allElections[j-1][1][k][1].first_name + " " + allElections[j-1][1][k][1].last_name + " finished with a total of " + $scope.dashboard_results[i] + " votes.<br>";
                             }
-
                         }
-
-
                     }
                 }
 
-                if ($rootScope.session.access == "Admin") {
-                    $scope.display_dashboard[j - 1] =
-                        "<h3>" + allElections[j - 1][0].title + "</h3>"
-                        + "<br><h4>" + allElections[j - 1][0].start_date + " to " + allElections[j - 1][0].end_date
-                        + "<br>Election Description: " + allElections[j - 1][0].description
-                        + "<br>Election Level: " + allElections[j - 1][0].level + "</h4>"
-                        + "<br>" + $scope.dashboard_winner
-                        + "<br>" + $scope.all_results.replace(',' , ' ');
+                $scope.display_dashboard[j - 1] =
+                    "<h3>" + allElections[j - 1][0].title + "</h3>"
+                    + "<br><h4>" + allElections[j - 1][0].start_date + " to " + allElections[j - 1][0].end_date
+                    + "<br>Election Description: " + allElections[j - 1][0].description
+                    + "<br>Election Level: " + allElections[j - 1][0].level + "</h4>";
+
+                //$scope.message = allElections[j-1][0].end_date; //returns end_date
+
+                var endDate = new Date(allElections[j-1][0].end_date.split(" ")[0]);
+
+                if(endDate > (new Date())) {
+
+                    //$scope.hasEndDatePassed = false; on going election!
+
+                    if ($rootScope.session.access == "Admin") {
+                        $scope.display_dashboard[j - 1] +=
+                            "<br>" + $scope.dashboard_winner +
+                            "<br>" + $scope.all_results;
+                    }
                 }
+
                 else {
-                    $scope.display_dashboard[j - 1] =
-                        "<h3>" + allElections[j - 1][0].title + "</h3>"
-                        + "<br><h4>" + allElections[j - 1][0].start_date + " to " + allElections[j - 1][0].end_date
-                        + "<br>Election Description: " + allElections[j - 1][0].description
-                        + "<br>Election Level: " + allElections[j - 1][0].level + "</h4>"
-                        + "<br>" + $scope.dashboard_winner;
+
+                    // $scope.hasEndDatePassed = true; election has ended!
+
+                    if ($rootScope.session.access == "Admin") {
+                        $scope.display_dashboard[j - 1] +=
+                            "<br>" + $scope.dashboard_winner +
+                            "<br>" + $scope.all_results;
+                    }
+                    else {
+                        $scope.display_dashboard[j - 1] +=
+                            "<br>" + $scope.dashboard_winner;
+                    }
                 }
+
+
 
             }
         }
