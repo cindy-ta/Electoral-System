@@ -155,11 +155,10 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
 
         //$scope.message = election;
         //$scope.message = election.election_id;
-        $scope.election_title = election[0].title;
-        $scope.election_description = election[0].description;
-        $scope.election_startDate = election[0].start_date;
-        $scope.election_endDate = election[0].end_date;
-        $scope.election_level = election[0].level;
+        $scope.election_info = "<font size='5.5'><b>" + election[0].title + "</b></font>"
+            + "<br><h4>" + election[0].start_date.split(" ")[0] + " to " + election[0].end_date.split(" ")[0]
+            + "<br><b>Election Description: </b>" + election[0].description
+            + "<br><b>Election Level: </b>" + election[0].level + "</h4>";
 
 
 
@@ -169,10 +168,10 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
             $scope.candidate = [];
             for (var i = 0; i < candidates.length; i++) {
                 $scope.candidate[i] =
-                    "<h3>" + candidates[i].first_name + " " + candidates[i].last_name + "</h3>"
-                    + "<br><h4>" + candidates[i].party_name
-                    + "<br><h5>" + candidates[i].bio
-                    + "<br>" + candidates[i].website_link + "</h5>";
+                    "<font size='5.5'><b>" + candidates[i].first_name + " " + candidates[i].last_name + "</font></b>"
+                    + "<font size='4'>  (" + candidates[i].party_name + ")</font>"
+                    + "<br><p><b>Candidate's Biography: </b>" + candidates[i].bio
+                    + "<br><b>Candidate's Website: </b>" + candidates[i].website_link + "</p><br>";
             }
 
             $scope.people = [];
@@ -217,14 +216,13 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
             // find winning candidate
             for ( var i = 0; i < results.length; i++) {
                 if (results[i][1].candidate_id == winner) {
-                    $scope.print_winner = "The winner of this precinct election is " + results[i][1].first_name + " " + results[i][1].last_name + "<br> with a total of " + maxResult + " votes";
+                    $scope.print_winner = "The winner of this precinct election is " + results[i][1].first_name + " " + results[i][1].last_name + " with a total of " + maxResult + " votes";
                 }
             }
 
 
             $scope.print_results = [];
 
-            // c
             for ( var i = 0; i < results.length; i++) {
                 $scope.print_results[i] = results[i][1].first_name + " " + results[i][1].last_name + " finished with a total of " + $scope.candidate_results[results[i][0].candidate_id] + " votes ";
             }

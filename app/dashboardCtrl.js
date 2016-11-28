@@ -61,10 +61,10 @@ app.controller("dashboardCtrl", function(md5, $http, $scope, $rootScope, uuid2, 
                 }
 
                 $scope.display_dashboard[j - 1] =
-                    "<h3>" + allElections[j - 1][0].title + "</h3>"
-                    + "<br><h4>" + allElections[j - 1][0].start_date + " to " + allElections[j - 1][0].end_date
-                    + "<br>Election Description: " + allElections[j - 1][0].description
-                    + "<br>Election Level: " + allElections[j - 1][0].level + "</h4>";
+                    "<font size='5.5'><b>" + allElections[j - 1][0].title + "</b></font>"
+                    + "<br><h4>" + allElections[j - 1][0].start_date.split(" ")[0] + " to " + allElections[j - 1][0].end_date.split(" ")[0]
+                    + "<br><b>Election Description:</b> " + allElections[j - 1][0].description
+                    + "<br><b>Election Level:</b> " + allElections[j - 1][0].level + "</h4>";
 
                 //$scope.message = allElections[j-1][0].end_date; //returns end_date
 

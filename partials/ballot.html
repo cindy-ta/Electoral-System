@@ -18,10 +18,7 @@
 
                 <div class="thumbnail">
                     <div class="caption-full">
-                        <h2><div ng-bind-html="election_title"></div></h2>
-                        <h3><div ng-bind-html="election_startDate"></div> to <div ng-bind-html="election_endDate"></div></h3>
-                        <h4><div ng-bind-html="election_description"></div></h4>
-                        <h4><div ng-bind-html="election_level"></div></h4>
+                        <div ng-bind-html="election_info"></div>
                     </div>
                 </div>
 
@@ -36,21 +33,17 @@
                     <div class="row">
 
                         <div ng-repeat="name in candidate track by $index">
-                            <p ng-bind-html="name"></p>
+                            <div ng-bind-html="name"></div>
                         </div>
 
                     </div>
-
-                    <hr>
-
-                    <hr>
 
                 </div>
 
                 <div class="thumbnail" ng-hide="!showVoting()">
 
                     <form>
-                        <center><h2>Cast Your Vote!</h2></center>
+                        <center><h2>Voting Ballot</h2></center>
 
                         <div ng-repeat="person in people">
                             <h4>
@@ -60,7 +53,7 @@
                         </div>
 
 
-                        <button type="submit" class="btn btn-default" ng-click="castVote()">Vote</button>
+                        <button type="submit" class="btn btn-success" ng-click="castVote()">Cast Your Vote!</button>
                     </form>
                 </div>
 
@@ -70,11 +63,11 @@
                     <center><h2>Precinct Election Results</h2><br/>
 
                         <h4><div ng-bind-html="print_winner"></div></h4></center>
-                    <br/><br/>
+                    <br/>
 
-                    <h5>The voting results for this precinct are as follows, </h5><br/>
+                    <font size="4">The voting results for this precinct are as follows </font><br/>
                     <div ng-repeat="resultsDetails in print_results track by $index">
-                        <p ng-bind-html="resultsDetails"></p>
+                        <div ng-bind-html="resultsDetails"></div>
                     </div>
 
 
