@@ -24,7 +24,7 @@
                     </div>
                 </div>
 
-                <div ng-hide="manager_check()">
+                <div ng-hide="hidePollButtons()">
                     <center>
                         <button type="button" ng-hide="!isPollEnabled" ng-click="changePollStatus()" class="btn btn-danger">Disable Polling</button>
                         <button type="button" ng-hide="isPollEnabled" ng-click="changePollStatus()" class="btn btn-success">Enable Polling</button>
