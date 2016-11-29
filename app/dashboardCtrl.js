@@ -54,7 +54,7 @@ app.controller("dashboardCtrl", function(md5, $http, $scope, $rootScope, uuid2, 
                         // have index of candidate_id
                         for ( var k = 0; k < allElections[j-1][1].length; k++) {
                             if (allElections[j-1][1][k][1].candidate_id == i) {
-                                $scope.all_results[i] = " " + allElections[j-1][1][k][1].first_name + " " + allElections[j-1][1][k][1].last_name + " finished with a total of " + $scope.dashboard_results[i] + " votes.<br>";
+                                $scope.all_results[i] = " " + allElections[j-1][1][k][1].first_name + " " + allElections[j-1][1][k][1].last_name + " has a total of " + $scope.dashboard_results[i] + " votes.<br>";
                             }
                         }
                     }
