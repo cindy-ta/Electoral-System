@@ -306,6 +306,9 @@ app.controller("ballotCtrl", function(md5, $http, $scope, $rootScope, uuid2, $lo
             {
                 $scope.message = "Vote successfully saved!!"
                 checkIfVoted();
+                var doc = new jsPDF();
+                doc.text('Voter ID: '+$rootScope.session.user_name+'\n\n'+'Election ID: '+$scope.selectedElection[0].election_id+'\n\n'+'Candidate ID: '+ $scope.selected_candidate, 10, 10);
+                doc.save('a4.pdf');
             }
 
         })

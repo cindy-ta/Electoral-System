@@ -15,11 +15,5 @@ app.controller("searchCtrl", function(md5, $http, $scope){
             $scope.message = search;
 
         });
-
-        /*
-        var doc = new jsPDF();
-        doc.text(HELLO WORLD, 10, 10);
-        doc.save('a4.pdf');*/
-
     }
 });
