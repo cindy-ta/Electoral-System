@@ -39,19 +39,20 @@
     <br/>
     <br/>
 
-    <table>
+    <table ng-hide="hideTable()">
         <th>
-            <td> ID &nbsp </td>
-            <td> First Name &nbsp </td>
-            <td> Last Name &nbsp </td>
-            <td> Government ID &nbsp </td>
-            <td> Age &nbsp </td>
-            <td> Gender  &nbsp </td>
-            <td> Contact Number </td>
+            <td> <b><u>ID &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp </u></b></td>
+            <td> <b><u> First Name &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  </u></b></td>
+            <td> <b><u> Last Name &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp </u></b></td>
+            <td> <b><u> Government ID &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp </u></b></td>
+            <td> <b><u> Age &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp </u></b></td>
+            <td> <b><u> Gender  &nbsp &nbsp &nbsp &nbsp &nbsp</u></b></td>
+            <td> <b><u> Contact Number &nbsp </u></b></td>
         </th>
 
         <tr ng-repeat="voter in searchVoterResults">
-            <td>{{ voter.voter_id }} &nbsp </td>
+            <td></td>
+            <td>{{ voter.voter_id }} </td>
             <td>{{ voter.first_name }}</td>
             <td>{{ voter.last_name }}</td>
             <td>{{ voter.government_id }}</td>
@@ -60,6 +61,7 @@
             <td>{{ voter.contact_number }}</td>
         </tr>
         <tr ng-repeat="manager in searchManagerResults">
+            <td></td>
             <td>{{ manager.manager_id }} &nbsp </td>
             <td>{{ manager.first_name }}</td>
             <td>{{ manager.last_name }}</td>
@@ -69,6 +71,9 @@
             <td>{{ manager.contact_number }}</td>
         </tr>
     </table>
+
+    <br/>
+    <br/>
 
 </div>
 

@@ -31,4 +31,8 @@ app.controller("searchCtrl", function(md5, $http, $scope){
 
         });
     }
+
+    $scope.hideTable = function() {
+        return $scope.searchVoterResults.length == 0 && $scope.searchManagerResults.length == 0;
+    }
 });
