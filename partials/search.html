@@ -36,5 +36,39 @@
         <button type="submit" class="btn btn-default">Search Database</button>
     </form>
 
+    <br/>
+    <br/>
+
+    <table>
+        <th>
+            <td> ID &nbsp </td>
+            <td> First Name &nbsp </td>
+            <td> Last Name &nbsp </td>
+            <td> Government ID &nbsp </td>
+            <td> Age &nbsp </td>
+            <td> Gender  &nbsp </td>
+            <td> Contact Number </td>
+        </th>
+
+        <tr ng-repeat="voter in searchVoterResults">
+            <td>{{ voter.voter_id }} &nbsp </td>
+            <td>{{ voter.first_name }}</td>
+            <td>{{ voter.last_name }}</td>
+            <td>{{ voter.government_id }}</td>
+            <td>{{ voter.age }}</td>
+            <td>{{ voter.gender }}</td>
+            <td>{{ voter.contact_number }}</td>
+        </tr>
+        <tr ng-repeat="manager in searchManagerResults">
+            <td>{{ manager.manager_id }} &nbsp </td>
+            <td>{{ manager.first_name }}</td>
+            <td>{{ manager.last_name }}</td>
+            <td>{{ manager.government_id }}</td>
+            <td>{{ manager.age }}</td>
+            <td>{{ manager.gender }}</td>
+            <td>{{ manager.contact_number }}</td>
+        </tr>
+    </table>
+
 </div>
 

@@ -26,39 +26,37 @@ require_once '../includes/db.php'; // The mysql database connection script
     if ($zip_code == "undefined"){
         $zip_code = "";
     }
-    $outp = "";
+
+
+    $arrVoter = array();
+    $arr = array();
+
+    $query="SELECT * FROM Voters, Addresses WHERE voter_id LIKE '%$username%' AND first_name LIKE '%$first_name%' AND last_name LIKE '%$last_name%' AND government_id LIKE '%$government_id%' AND zip_code LIKE '%$zip_code%' AND Voters.address_id = Addresses.address_id  ";
+    $result = $mysqli->query($query) or die($mysqli->error.__LINE__);
+    while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
+        $arrVoter[] = $rs;
+        $arr[] = $rs;
+    }
+
+    $arrManager = array();
+    $query="SELECT * FROM Managers, Addresses WHERE manager_id LIKE '%$username%' AND first_name LIKE '%$first_name%' AND last_name LIKE '%$last_name%' AND government_id LIKE '%$government_id%' AND zip_code LIKE '%$zip_code%' AND Managers.address_id = Addresses.address_id ";
+    $result = $mysqli->query($query) or die($mysqli->error.__LINE__);
+    while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
+        $arrManager[] = $rs;
+        $arr[] = $rs;
+    }
+
+
     if ($user_type == "Voter"){
-        $query="SELECT * FROM Voters, Addresses WHERE voter_id LIKE '%$username%' AND first_name LIKE '%$first_name%' AND last_name LIKE '%$last_name%' AND government_id LIKE '%$government_id%' AND zip_code LIKE '%$zip_code%' AND Voters.address_id = Addresses.address_id  ";
-
-
-        $result = $mysqli->query($query) or die($mysqli->error.__LINE__);
-
-        while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
-            if ($outp != "") {$outp .= ",";}
-            $outp .= '{ Voter ID: "'  . $rs["voter_id"] . '", ';
-            $outp .= 'First Name: "'  . $rs["first_name"] . '", ';
-            $outp .= 'Last Name :"'   . $rs["last_name"]        . '", ';
-            $outp .= 'Government ID :"'   . $rs["government_id"]        . '", ';
-            $outp .= 'Zip Code :"'. $rs["zip_code"]     . '" } ';
-        }
+        echo $json_response = json_encode($arrVoter);
     }
-    else{ //if($user_type == false){
-        $query="SELECT * FROM Managers, Addresses WHERE manager_id LIKE '%$username%' AND first_name LIKE '%$first_name%' AND last_name LIKE '%$last_name%' AND government_id LIKE '%$government_id%' AND zip_code LIKE '%$zip_code%' AND Managers.address_id = Addresses.address_id ";
-        $result = $mysqli->query($query) or die($mysqli->error.__LINE__);
-
-        while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
-            if ($outp != "") {$outp .= ",";}
-            $outp .= '{ Manager ID: "'  . $rs["manager_id"] . '", ';
-            $outp .= 'First Name: "'  . $rs["first_name"] . '", ';
-            $outp .= 'Last Name :"'   . $rs["last_name"]        . '", ';
-            $outp .= 'Government ID :"'   . $rs["government_id"]        . '", ';
-            $outp .= 'Zip Code :"'. $rs["zip_code"]     . '" } ';
-        }
+    else if($user_type == "Manager")
+    {
+        echo $json_response = json_encode($arrManager);
+    }else
+    {
+        echo $json_response = json_encode($arr);
     }
-
-    $outp ='RESULTS: [  '.$outp.'  ]';
-
-    echo($outp);
 
 //}
 ?>

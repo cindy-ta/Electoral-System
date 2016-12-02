@@ -1,6 +1,7 @@
 app.controller("dashboardCtrl", function(md5, $http, $scope, $rootScope, uuid2, $location, $cookieStore){
     $scope.message = "";
     $scope.allElections = [];
+    $scope.new_results = "";
 
     home_check1();
 
@@ -59,6 +60,17 @@ app.controller("dashboardCtrl", function(md5, $http, $scope, $rootScope, uuid2, 
                         }
                     }
                 }
+
+                // for ( var i = 0; i < $scope.dashboard_results.length; i++) {
+                //     if ($scope.dashboard_results[i] != null) {
+                //         // have index of candidate_id
+                //         for ( var k = 0; k < allElections[j-1][1].length; k++) {
+                //             if (allElections[j-1][1][k][1].candidate_id == i) {
+                //                 $scope.new_results  += " " + allElections[j-1][1][k][1].first_name + " " + allElections[j-1][1][k][1].last_name + " has a total of " + $scope.dashboard_results[i] + " votes.<br>";
+                //             }
+                //         }
+                //     }
+                // }
 
                 $scope.display_dashboard[j - 1] =
                     "<font size='5.5'><b>" + allElections[j - 1][0].title + "</b></font>"
