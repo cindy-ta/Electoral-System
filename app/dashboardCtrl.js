@@ -1,7 +1,6 @@
 app.controller("dashboardCtrl", function(md5, $http, $scope, $rootScope, uuid2, $location, $cookieStore){
     $scope.message = "";
     $scope.allElections = [];
-    $scope.new_results = "";
 
     home_check1();
 
@@ -16,6 +15,8 @@ app.controller("dashboardCtrl", function(md5, $http, $scope, $rootScope, uuid2, 
         $scope.dashboard_results = [];
         $scope.dashboard_winner = [];
         $scope.all_results = []; // for admin view
+        $scope.open_display_dashboard = [];
+        $scope.closed_display_dashboard  = [];
 
         // iterates through each elections
         for ( var j = 0; j < allElections.length + 1; j++ ) {
@@ -61,23 +62,6 @@ app.controller("dashboardCtrl", function(md5, $http, $scope, $rootScope, uuid2, 
                     }
                 }
 
-                // for ( var i = 0; i < $scope.dashboard_results.length; i++) {
-                //     if ($scope.dashboard_results[i] != null) {
-                //         // have index of candidate_id
-                //         for ( var k = 0; k < allElections[j-1][1].length; k++) {
-                //             if (allElections[j-1][1][k][1].candidate_id == i) {
-                //                 $scope.new_results  += " " + allElections[j-1][1][k][1].first_name + " " + allElections[j-1][1][k][1].last_name + " has a total of " + $scope.dashboard_results[i] + " votes.<br>";
-                //             }
-                //         }
-                //     }
-                // }
-
-                $scope.display_dashboard[j - 1] =
-                    "<font size='5.5'><b>" + allElections[j - 1][0].title + "</b></font>"
-                    + "<br><h4>" + allElections[j - 1][0].start_date.split(" ")[0] + " to " + allElections[j - 1][0].end_date.split(" ")[0]
-                    + "<br><b>Election Description:</b> " + allElections[j - 1][0].description
-                    + "<br><b>Election Level:</b> " + allElections[j - 1][0].level + "</h4>";
-
                 //$scope.message = allElections[j-1][0].end_date; //returns end_date
 
                 var endDate = new Date(allElections[j-1][0].end_date.split(" ")[0]);
@@ -85,29 +69,37 @@ app.controller("dashboardCtrl", function(md5, $http, $scope, $rootScope, uuid2, 
                 if(endDate > (new Date())) {
                     //$scope.hasEndDatePassed = false; on going election!
 
-                    $scope.display_dashboard[j - 1] +=
-                        "<br><font color='red'><b> * This election is still open to eligible voters! * </b></font>";
+                    $scope.open_display_dashboard[j - 1] =
+                        "<font size='5.5'><b>" + allElections[j - 1][0].title + "</b></font>"
+                        + "<br><h4>" + allElections[j - 1][0].start_date.split(" ")[0] + " to " + allElections[j - 1][0].end_date.split(" ")[0]
+                        + "<br><b>Election Description:</b> " + allElections[j - 1][0].description
+                        + "<br><b>Election Level:</b> " + allElections[j - 1][0].level + "</h4>"
+                        + "<br><font color='red'><b> * This election is still open to eligible voters! * </b></font>";
 
                     if ($rootScope.session.access == "Admin") {
-                        $scope.display_dashboard[j - 1] +=
+                        $scope.open_display_dashboard[j - 1] +=
                             "<br>" + $scope.dashboard_winner +
                             "<br>" + $scope.all_results;
                     }
+
                 }
 
                 else {
 
                     // $scope.hasEndDatePassed = true; election has ended!
 
+                    $scope.closed_display_dashboard[j - 1] =
+                        "<font size='5.5'><b>" + allElections[j - 1][0].title + "</b></font>"
+                        + "<br><h4>" + allElections[j - 1][0].start_date.split(" ")[0] + " to " + allElections[j - 1][0].end_date.split(" ")[0]
+                        + "<br><b>Election Description:</b> " + allElections[j - 1][0].description
+                        + "<br><b>Election Level:</b> " + allElections[j - 1][0].level + "</h4>"
+                        + "<br><font color='green'><b> * " + $scope.dashboard_winner + "</b></font>";
+
                     if ($rootScope.session.access == "Admin") {
-                        $scope.display_dashboard[j - 1] +=
-                            "<br><font color='green'><b> * " + $scope.dashboard_winner + "</b></font>" +
+                        $scope.closed_display_dashboard[j - 1] +=
                             "<br>" + $scope.all_results;
                     }
-                    else {
-                        $scope.display_dashboard[j - 1] +=
-                            "<br><font color='green'><b>" + $scope.dashboard_winner + "</b></font>";
-                    }
+
                 }
 
 
