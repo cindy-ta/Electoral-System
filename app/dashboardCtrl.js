@@ -25,7 +25,7 @@ app.controller("dashboardCtrl", function(md5, $http, $scope, $rootScope, uuid2, 
         for ( var j = 0; j < allElections.length + 1; j++ ) {
             //var j = 23;
 
-
+            $scope.all_results = [];
             if (allElections[j - 1] != null) {
                 for (var i = 0; i < allElections[j - 1][1].length; i++) {
                     if ($scope.dashboard_results[allElections[j - 1][1][i][0].candidate_id] == null) {

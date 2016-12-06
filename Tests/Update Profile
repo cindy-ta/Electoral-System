@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8888/Electoral-System/" />
+<title>Update Profile</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Update Profile</td></tr>
+</thead><tbody>
+<tr>
+	<td>click</td>
+	<td>link=Profile Page</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=first_name</td>
+	<td>Anthony</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=last_name</td>
+	<td>Maiers</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=government_ID</td>
+	<td>1111111111</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=age</td>
+	<td>30</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=gender</td>
+	<td>label=Male</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=contact_number</td>
+	<td>1234567891</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=address_line1</td>
+	<td>4624 Holly Circle NE</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=address_line2</td>
+	<td>Line2</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=city</td>
+	<td>Cedar Rapids</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=country</td>
+	<td>US</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=zip_code</td>
+	<td>52411</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.btn.btn-default</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>
